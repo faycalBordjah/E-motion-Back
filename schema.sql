@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Hôte : 127.0.0.1:3306
--- Généré le :  mer. 18 sep. 2019 à 09:45
+-- Généré le :  mer. 18 sep. 2019 à 12:54
 -- Version du serveur :  5.7.24
 -- Version de PHP :  7.2.14
 
@@ -32,11 +32,11 @@ DROP TABLE IF EXISTS `facture`;
 CREATE TABLE IF NOT EXISTS `facture` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `idLocation` int(11) NOT NULL,
-  `prix` int(11) NOT NULL,
-  `duree` int(11) NOT NULL,
-  `kilometreDebut` int(11) NOT NULL,
-  `kilometrageFin` int(11) NOT NULL,
-  `numFacture` int(11) NOT NULL,
+  `price` int(11) NOT NULL,
+  `duration` int(11) NOT NULL,
+  `startKilometer` int(11) NOT NULL,
+  `endKilometer` int(11) NOT NULL,
+  `billNumber` int(11) NOT NULL COMMENT 'facture',
   PRIMARY KEY (`id`),
   KEY `idLocation` (`idLocation`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_general_ci;
@@ -50,13 +50,13 @@ CREATE TABLE IF NOT EXISTS `facture` (
 DROP TABLE IF EXISTS `location`;
 CREATE TABLE IF NOT EXISTS `location` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
-  `dateDebut` date NOT NULL,
-  `dateFin` date NOT NULL,
-  `heureDebut` time NOT NULL,
-  `heureFin` time NOT NULL,
+  `startDate` date NOT NULL,
+  `endDate` date NOT NULL,
+  `startHour` time NOT NULL,
+  `endHour` time NOT NULL,
   `idUser` int(11) NOT NULL,
   `idVehicule` int(11) NOT NULL,
-  `etat` enum('En cours','EN ATTENTE','TERMINER','ANNULER') COLLATE latin1_general_ci NOT NULL,
+  `state` varchar(10) COLLATE latin1_general_ci NOT NULL,
   PRIMARY KEY (`id`),
   KEY `idUser` (`idUser`),
   KEY `idVehicule` (`idVehicule`)
@@ -71,20 +71,19 @@ CREATE TABLE IF NOT EXISTS `location` (
 DROP TABLE IF EXISTS `user`;
 CREATE TABLE IF NOT EXISTS `user` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
-  `nom` varchar(30) COLLATE latin1_general_ci NOT NULL,
-  `prenom` varchar(30) COLLATE latin1_general_ci NOT NULL,
-  `dateNaissance` date NOT NULL,
-  `numRue` int(11) NOT NULL,
-  `nomRue` varchar(50) COLLATE latin1_general_ci NOT NULL,
-  `ville` varchar(50) COLLATE latin1_general_ci NOT NULL,
-  `codePosta` int(11) NOT NULL,
-  `telephone` varchar(10) COLLATE latin1_general_ci NOT NULL,
+  `lastname` varchar(30) COLLATE latin1_general_ci NOT NULL,
+  `firstname` varchar(30) COLLATE latin1_general_ci NOT NULL,
+  `bearth` date NOT NULL,
+  `num` int(11) NOT NULL,
+  `street` varchar(50) COLLATE latin1_general_ci NOT NULL,
+  `town` varchar(50) COLLATE latin1_general_ci NOT NULL,
+  `zipCode` int(11) NOT NULL,
+  `phone` varchar(10) COLLATE latin1_general_ci NOT NULL,
   `mail` varchar(50) COLLATE latin1_general_ci NOT NULL,
   `password` varchar(15) COLLATE latin1_general_ci NOT NULL,
-  `numPermis` varchar(35) COLLATE latin1_general_ci NOT NULL,
+  `permit` varchar(35) COLLATE latin1_general_ci NOT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=latin1 COLLATE=latin1_general_ci;
-
 
 -- --------------------------------------------------------
 
@@ -95,19 +94,19 @@ CREATE TABLE IF NOT EXISTS `user` (
 DROP TABLE IF EXISTS `vehicule`;
 CREATE TABLE IF NOT EXISTS `vehicule` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
-  `modele` varchar(25) COLLATE latin1_general_ci NOT NULL,
-  `marque` varchar(20) COLLATE latin1_general_ci NOT NULL,
-  `type` enum('voiture','scooter') COLLATE latin1_general_ci NOT NULL,
-  `couleur` varchar(20) COLLATE latin1_general_ci NOT NULL,
-  `numSerie` int(11) NOT NULL,
-  `immatriculation` varchar(10) COLLATE latin1_general_ci NOT NULL,
-  `disponible` tinyint(1) NOT NULL,
-  `dateAchat` date NOT NULL,
-  `nbPlace` int(11) NOT NULL,
-  `prixAchat` int(11) NOT NULL,
-  `kilometrage` int(11) NOT NULL,
-  `etat` text COLLATE latin1_general_ci NOT NULL,
-  `categorie` enum('AUCUN','BERLINE','CROSSOVER','COUPE','UTILITAIRE','FAMILIALE') COLLATE latin1_general_ci NOT NULL,
+  `model` varchar(25) COLLATE latin1_general_ci NOT NULL,
+  `brand` varchar(20) COLLATE latin1_general_ci NOT NULL,
+  `type` varchar(10) COLLATE latin1_general_ci NOT NULL,
+  `category` varchar(15) COLLATE latin1_general_ci NOT NULL,
+  `color` varchar(20) COLLATE latin1_general_ci NOT NULL,
+  `serialNumber` int(11) NOT NULL,
+  `registering` varchar(10) COLLATE latin1_general_ci NOT NULL COMMENT 'immatriculation',
+  `available` tinyint(1) NOT NULL,
+  `purchaseDate` date NOT NULL,
+  `purchasePrice` int(11) NOT NULL,
+  `placeNumber` int(11) NOT NULL,
+  `kilometers` int(11) NOT NULL,
+  `state` text COLLATE latin1_general_ci NOT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_general_ci;
 
