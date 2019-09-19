@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Hôte : 127.0.0.1:3306
--- Généré le :  mer. 18 sep. 2019 à 12:54
+-- Généré le :  jeu. 19 sep. 2019 à 09:50
 -- Version du serveur :  5.7.24
 -- Version de PHP :  7.2.14
 
@@ -36,7 +36,6 @@ CREATE TABLE IF NOT EXISTS `facture` (
   `duration` int(11) NOT NULL,
   `startKilometer` int(11) NOT NULL,
   `endKilometer` int(11) NOT NULL,
-  `billNumber` int(11) NOT NULL COMMENT 'facture',
   PRIMARY KEY (`id`),
   KEY `idLocation` (`idLocation`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_general_ci;
@@ -81,9 +80,10 @@ CREATE TABLE IF NOT EXISTS `user` (
   `phone` varchar(10) COLLATE latin1_general_ci NOT NULL,
   `mail` varchar(50) COLLATE latin1_general_ci NOT NULL,
   `password` varchar(15) COLLATE latin1_general_ci NOT NULL,
+  `role` varchar(10) COLLATE latin1_general_ci NOT NULL,
   `permit` varchar(35) COLLATE latin1_general_ci NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=latin1 COLLATE=latin1_general_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_general_ci;
 
 -- --------------------------------------------------------
 
