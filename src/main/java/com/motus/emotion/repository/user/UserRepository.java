@@ -1,4 +1,4 @@
-package com.motus.emotion.repository;
+package com.motus.emotion.repository.user;
 
 import com.motus.emotion.model.User;
 import org.springframework.data.jpa.repository.JpaRepository;

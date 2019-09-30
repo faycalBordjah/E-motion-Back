@@ -1,8 +1,7 @@
-package com.motus.emotion.service;
+package com.motus.emotion.service.user;
 
-import com.motus.emotion.exception.NotFoundException;
 import com.motus.emotion.model.User;
-import com.motus.emotion.repository.UserRepository;
+import com.motus.emotion.repository.user.UserRepository;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -33,12 +32,9 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public Optional <User> getById(Long id) throws NotFoundException {
-        Optional<User> user = userRepository.findById(id);
-        if (user.isEmpty()){
-            throw new NotFoundException("dddd");
-        }
-        return userRepository.findById(id);
+    public User getById(Long id) {
+        Optional<User> optionalUser = userRepository.findById(id);
+        return optionalUser.isPresent() ? optionalUser.get() : null;
     }
 
     @Override
@@ -51,14 +47,13 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public void updateUser(Optional<User> user) throws NotFoundException {
-        Optional<User> userUpdated = getById(user.getId());
+    public void updateUser(User user) {
+        Optional<User> userUpdated = userRepository.findById(user.getId());
         if(userUpdated != null) {
             BeanUtils.copyProperties(user, userUpdated, "password");
         }
         userRepository.save(user);
     }
-
 
     @Override
     public boolean isUserExist(User user) { return getByMail(user.getMail()) != null; }
