@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+import java.util.Optional;
 
 @RestController
 @RequestMapping(value = "/emotion/api/user")
@@ -17,7 +18,7 @@ public class UserController {
     private UserService userService;
 
     @GetMapping(value = "/{id}")
-    public User getUser(@PathVariable(value = "id")Long id) throws NotFoundException {
+    public Optional<User> getUser(@PathVariable(value = "id")Long id) throws NotFoundException {
         return userService.getUser(id);
     }
 
