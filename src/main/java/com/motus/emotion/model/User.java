@@ -1,8 +1,6 @@
 package com.motus.emotion.model;
 
 import com.motus.emotion.model.custom.Address;
-import org.hibernate.annotations.Type;
-import org.hibernate.annotations.TypeDef;
 import org.springframework.data.annotation.LastModifiedDate;
 
 import javax.persistence.*;
@@ -16,27 +14,26 @@ public class User {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
-    @Column
+    @Column(nullable = false)
     private String firstName;
-    @Column
+    @Column(nullable = false)
     private String lastName;
-    @Column
+    @Column(nullable = false)
     private Date birthDay;
-    @Column
+    @Column(nullable = false)
     private String mail;
-    @Column
+    @Column(nullable = false)
     private String password;
-    @Column
+    @Column(nullable = false)
     private int zipCode;
-    @Column
+    @Column(nullable = false)
     private int permitNum;
-    @Column
+    @Column(nullable = false)
     @Embedded
     private Address address;
     @Column(nullable = false, updatable = false)
     private Date creationDate;
     @Column(nullable = false)
-    @LastModifiedDate
     private Date modificationDate;
 
     public User() {
