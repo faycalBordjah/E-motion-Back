@@ -1,8 +1,11 @@
 package com.motus.emotion.model;
 
 import javax.persistence.*;
+import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Date;
+import java.util.List;
 
 @Entity
 @Table(name = "vehicule")
@@ -22,42 +25,30 @@ public class Vehicule {
     private String category;
     @Column(nullable = false)
     private String color;
-    @Column(nullable = false)
+    @Column(name = "serial_number", nullable = false)
     private int serialNumber;
     @Column(nullable = false)
     private String registering;
     @Column(nullable = false)
     private boolean available;
-    @Column()
+    @Column(name = "purchase_date")
     private Date purchaseDate;
-    @Column()
+    @Column(name = "purchase_price")
     private double purchasePrice;
-    @Column(nullable = false)
+    @Column(name = "place_number", nullable = false)
     private int placeNumber;
     @Column()
     private int kilometers;
     @Column()
-    private String[] state;
+    private String state;
 
     public Vehicule() {
 
     }
 
-    public Vehicule(String model, String brand, String type, String category, String color, int serialNumber
-            , String registering, boolean available) {
-        this.model = model;
-        this.brand = brand;
-        this.type = type;
-        this.category = category;
-        this.color = color;
-        this.serialNumber = serialNumber;
-        this.registering = registering;
-        this.available = available;
-        this.purchaseDate = new Date();
-    }
 
     public Vehicule(String model, String brand, String type, String category, String color, int serialNumber, String registering
-            , boolean available, double purchasePrice, int placeNumber, int kilometers, String[] state) {
+            , boolean available, double purchasePrice, int placeNumber, int kilometers, String state) {
         this.model = model;
         this.brand = brand;
         this.type = type;
@@ -70,7 +61,7 @@ public class Vehicule {
         this.purchasePrice = purchasePrice;
         this.placeNumber = placeNumber;
         this.kilometers = kilometers;
-        this.state  = state;
+        this.state = state;
     }
 
     public Long getId() {
@@ -178,11 +169,12 @@ public class Vehicule {
     }
 
     public String[] getState() {
-        return state;
+            String[] stateSplited = state.split(" , ");
+        return stateSplited;
     }
 
     public void setState(String[] state) {
-        this.state = state;
+        this.state = String.join(" , ", state);
     }
 
     @Override
@@ -201,7 +193,7 @@ public class Vehicule {
                 ", purchasePrice=" + purchasePrice +
                 ", placeNumber=" + placeNumber +
                 ", kilometers=" + kilometers +
-                ", state=" + Arrays.toString(state) +
+                ", state=" + state +
                 '}';
     }
 }

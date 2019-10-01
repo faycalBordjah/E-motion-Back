@@ -1,7 +1,8 @@
-package com.motus.emotion.service.user;
+package com.motus.emotion.service.impl;
 
 import com.motus.emotion.model.User;
-import com.motus.emotion.repository.user.UserRepository;
+import com.motus.emotion.repository.UserRepository;
+import com.motus.emotion.service.UserService;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -13,7 +14,6 @@ import java.util.Optional;
 @Service(value="userService")
 public class UserServiceImpl implements UserService {
 
-    @Autowired
     private UserRepository userRepository;
 
     @Autowired
@@ -21,7 +21,7 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public List<User> getAll() {
-        List<User> userList = new ArrayList();
+        List<User> userList = new ArrayList<>();
         userRepository.findAll().iterator().forEachRemaining(userList::add);
         return userList;
     }
@@ -34,7 +34,7 @@ public class UserServiceImpl implements UserService {
     @Override
     public User getById(Long id) {
         Optional<User> optionalUser = userRepository.findById(id);
-        return optionalUser.isPresent() ? optionalUser.get() : null;
+        return optionalUser.orElse(null);
     }
 
     @Override
@@ -49,7 +49,7 @@ public class UserServiceImpl implements UserService {
     @Override
     public void updateUser(User user) {
         Optional<User> userUpdated = userRepository.findById(user.getId());
-        if(userUpdated != null) {
+        if(userUpdated.isPresent()) {
             BeanUtils.copyProperties(user, userUpdated, "password");
         }
         userRepository.save(user);

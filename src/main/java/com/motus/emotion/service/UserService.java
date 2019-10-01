@@ -1,4 +1,4 @@
-package com.motus.emotion.service.user;
+package com.motus.emotion.service;
 
 import com.motus.emotion.model.User;
 
