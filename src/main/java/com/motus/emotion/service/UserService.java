@@ -1,28 +1,22 @@
 package com.motus.emotion.service;
 
-import com.motus.emotion.exception.NotFoundException;
 import com.motus.emotion.model.User;
-import com.motus.emotion.repository.UserRepository;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
 
-import java.util.Optional;
+import java.util.List;
 
-@Service
-public class UserService {
+public interface UserService {
 
-    @Autowired
-    private UserRepository userRepository;
+    User getById(Long id);
 
-    public Optional <User> getUser(Long id) throws NotFoundException {
-        Optional<User> user = userRepository.findById(id);
-        if (user.isEmpty()){
-            throw new NotFoundException("dddd");
-        }
-        return userRepository.findById(id);
-    }
+    User getByMail(String mail);
 
-    public User addUser(User user){
-        return userRepository.save(user);
-    }
+    List<User> getAll();
+
+    User save(User user);
+
+    void delete(Long id);
+
+    void updateUser(User user);
+
+    boolean isUserExist(User user);
 }

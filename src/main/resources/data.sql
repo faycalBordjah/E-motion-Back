@@ -41,21 +41,27 @@
 -- Déchargement des données de la table `user`
 --
 
+INSERT INTO user (id, city, country,number,state,street,zip, birth_day, creation_date, first_name, last_name,mail,modification_date,password,permit_num,zip_code) VALUES
+(1,'paris', 'france', 1, 15, 'boulevard dAngular', 'develoville', '2016-08-25 01:23:46.0', '2016-08-25 01:23:46.0', 'Alves.Kevin@gmail.com', 'kevin.alves', 'admin',
+'2016-08-25 01:23:46.0','dddd',333,75000),
+(2,'paris', 'france', 1, 15, 'boulevard dAngular', 'develoville', '2016-08-25 01:23:46.0', '2016-08-25 01:23:46.0', 'toto.toto@gmail.com', 'toto.toto', 'user',
+'2016-08-25 01:23:46.0','dddd',333,75000);
 -- INSERT INTO user (id, city, country,number,state,street,zip, birth_day, creation_date, first_name, last_name,mail,modification_date,password,permit_num,zip_code) VALUES
--- (1,'paris', 'france', 1, 15, 'boulevard dAngular', 'develoville', '2016-08-25 01:23:46.0', '2016-08-25 01:23:46.0', 'Alves.Kevin@gmail.com', 'kevin.alves', 'admin',
---  '2016-08-25 01:23:46.0','dddd',333,75000);
+
 
 --
 -- Déchargement des données de la table `vehicule`
 --
 
--- INSERT INTO `vehicule` (`id`, `model`, `brand`, `type`, `category`, `color`, `serialNumber`, `registering`, `available`, `purchaseDate`, `purchasePrice`, `placeNumber`, `kilometers`, `state`) VALUES
--- (1, 'Zoe', 'renault', 'voiture', 'citadine', 'bleu', 214568, 'FGT789TGD', 0, '2017-08-17', 3150, 4, 1000, 'Rien'),
--- (2, 'Zoe', 'renault', 'voiture', 'citadine', 'grise', 4531, '789CQZ456', 0, '2018-07-31', 3250, 4, 2180, 'rien'),
--- (3, 'I-pace', 'Jaguar', 'voiture', 'berline', 'grise', 1548957, 'XYZ789IOP', 1, '2018-04-02', 5890, 5, 5108, 'rien'),
--- (4, 'Tesla', 'Tesla', 'voiture', 'berline', 'noir metalisé', 789456, 'TES123LAS', 1, '2018-12-25', 8515, 5, 7541, 'Très bon état'),
--- (5, 'vespa', 'piaggio', 'scooter', 'aucun', 'rouge', 789645, 'VES789PAS', 0, '2019-04-09', 5740, 1, 650, 'Neuf');
+INSERT INTO `vehicule` (`id`, `model`, `brand`, `type`, `category`, `color`, `serial_number`, `registering`, `available`, `purchase_date`, `purchase_price`, `place_number`, `kilometers`, `state`) VALUES
+(1, 'Zoe', 'renault', 'voiture', 'citadine', 'bleu', 214568, 'FGT789TGD', 0, '2017-08-17', 3150, 4, 1000, 'Rien'),
+(2, 'Zoe', 'renault', 'voiture', 'citadine', 'grise', 4531, '789CQZ456', 0, '2018-07-31', 3250, 4, 2180, 'Rien'),
+(3, 'I-pace', 'Jaguar', 'voiture', 'berline', 'grise', 1548957, 'XYZ789IOP', 1, '2018-04-02', 5890, 5, 5108, 'Rien'),
+(4, 'Tesla', 'Tesla', 'voiture', 'berline', 'noir metalisé', 789456, 'TES123LAS', 1, '2018-12-25', 8515, 5, 7541, 'Très bon état'),
+(5, 'vespa', 'piaggio', 'scooter', 'aucun', 'rouge', 789645, 'VES789PAS', 0, '2019-04-09', 5740, 1, 650, 'Neuf'),
+(6, 'vespa2', 'piaggio2', 'scooter2', 'aucun', 'rouge', 789645, 'VES789PAS', 0, '2019-04-09', 5740, 1, 650, 'Bris , Rayures , bosses');
 -- COMMIT;
+
 
 -- /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 --  /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
