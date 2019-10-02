@@ -79,7 +79,7 @@ public class UserController {
             logger.error("Unable to update. User with id {}  is not found", id);
             return new ApiResponse<>(HttpStatus.NOT_FOUND.value(), "Unable to update. User with id " + id + " not found.", userService.getById(id));
         }
-        return new ApiResponse<>(HttpStatus.OK.value(), "User updated successfully.", userService.updateUser(currentUser,user));
+        return new ApiResponse<>(HttpStatus.OK.value(), "User updated successfully.", userService.updateUser(currentUser, user));
     }
 
     @DeleteMapping(value = "/{id}", produces = {MediaType.APPLICATION_JSON_VALUE})

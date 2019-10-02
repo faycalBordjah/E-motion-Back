@@ -1,6 +1,6 @@
 package com.motus.emotion.repository.impl;
 
-import com.motus.emotion.model.Vehicule;
+import com.motus.emotion.model.Vehicle;
 import com.motus.emotion.repository.VehiculeRepository;
 
 import java.util.ArrayList;
@@ -11,20 +11,20 @@ abstract class VehiculeRepositoryImpl implements VehiculeRepository {
     private VehiculeRepository vehiculeRepository;
 
     @Override
-    public Vehicule findByType(String type) {
-        List<Vehicule> vehiculeList = new ArrayList();
-        vehiculeRepository.findAll().forEach((e -> vehiculeList.add(e)));
-        for(Vehicule u : vehiculeList) {
+    public Vehicle findByType(String type) {
+        List<Vehicle> vehicleList = new ArrayList();
+        vehiculeRepository.findAll().forEach((e -> vehicleList.add(e)));
+        for(Vehicle u : vehicleList) {
             if( u.getType() == type ) return u;
         }
         return null;
     }
 
     @Override
-    public Vehicule findBySerialNumber(int serialNumber) {
-        List<Vehicule> vehiculeList = new ArrayList();
-        vehiculeRepository.findAll().forEach((e -> vehiculeList.add(e)));
-        for(Vehicule u : vehiculeList) {
+    public Vehicle findBySerialNumber(int serialNumber) {
+        List<Vehicle> vehicleList = new ArrayList();
+        vehiculeRepository.findAll().forEach((e -> vehicleList.add(e)));
+        for(Vehicle u : vehicleList) {
             if( u.getSerialNumber() == serialNumber ) return u;
         }
         return null;

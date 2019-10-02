@@ -9,7 +9,7 @@ import java.util.List;
 
 @Entity
 @Table(name = "vehicule")
-public class Vehicule {
+public class Vehicle {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -42,12 +42,12 @@ public class Vehicule {
     @Column()
     private String state;
 
-    public Vehicule() {
+    public Vehicle() {
 
     }
 
 
-    public Vehicule(String model, String brand, String type, String category, String color, int serialNumber, String registering
+    public Vehicle(String model, String brand, String type, String category, String color, int serialNumber, String registering
             , boolean available, double purchasePrice, int placeNumber, int kilometers, String state) {
         this.model = model;
         this.brand = brand;

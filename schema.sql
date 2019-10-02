@@ -88,11 +88,11 @@ CREATE TABLE IF NOT EXISTS `user` (
 -- --------------------------------------------------------
 
 --
--- Structure de la table `vehicule`
+-- Structure de la table `vehicle`
 --
 
-DROP TABLE IF EXISTS `vehicule`;
-CREATE TABLE IF NOT EXISTS `vehicule` (
+DROP TABLE IF EXISTS `vehicle`;
+CREATE TABLE IF NOT EXISTS `vehicle` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `model` varchar(25) COLLATE latin1_general_ci NOT NULL,
   `brand` varchar(20) COLLATE latin1_general_ci NOT NULL,
@@ -125,7 +125,7 @@ ALTER TABLE `facture`
 --
 ALTER TABLE `location`
   ADD CONSTRAINT `location_ibfk_1` FOREIGN KEY (`idUser`) REFERENCES `user` (`id`),
-  ADD CONSTRAINT `location_ibfk_2` FOREIGN KEY (`idVehicule`) REFERENCES `vehicule` (`id`);
+  ADD CONSTRAINT `location_ibfk_2` FOREIGN KEY (`idVehicule`) REFERENCES `vehicle` (`id`);
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

@@ -1,13 +1,13 @@
 package com.motus.emotion.repository;
 
-import com.motus.emotion.model.Vehicule;
+import com.motus.emotion.model.Vehicle;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
 @Repository
-public interface VehiculeRepository extends JpaRepository<Vehicule, Long> {
+public interface VehiculeRepository extends JpaRepository<Vehicle, Long> {
 
-    Vehicule findByType(String type);
+    Vehicle findByType(String type);
 
-    Vehicule findBySerialNumber(int serialNumber);
+    Vehicle findBySerialNumber(int serialNumber);
 }
