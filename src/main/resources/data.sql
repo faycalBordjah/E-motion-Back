@@ -41,19 +41,19 @@
 -- Déchargement des données de la table `user`
 --
 
-INSERT INTO user (id, city, country,number,state,street,zip, birth_day, creation_date, first_name, last_name,mail,modification_date,password,permit_num,zip_code) VALUES
+INSERT INTO user (id, city, country,number,state,street,zip, birth_day, creation_date, first_name, last_name,mail,modification_date,password,permit_num,phone) VALUES
 (1,'paris', 'france', 1, 15, 'boulevard dAngular', 'develoville', '2016-08-25 01:23:46.0', '2016-08-25 01:23:46.0', 'Alves.Kevin@gmail.com', 'kevin.alves', 'admin',
-'2016-08-25 01:23:46.0','dddd',333,75000),
+'2016-08-25 01:23:46.0','dddd',333,"75000"),
 (2,'paris', 'france', 1, 15, 'boulevard dAngular', 'develoville', '2016-08-25 01:23:46.0', '2016-08-25 01:23:46.0', 'toto.toto@gmail.com', 'toto.toto', 'user',
-'2016-08-25 01:23:46.0','dddd',333,75000);
+'2016-08-25 01:23:46.0','dddd',333,"75000");
 -- INSERT INTO user (id, city, country,number,state,street,zip, birth_day, creation_date, first_name, last_name,mail,modification_date,password,permit_num,zip_code) VALUES
 
 
 --
--- Déchargement des données de la table `vehicule`
+-- Déchargement des données de la table `vehicle`
 --
 
-INSERT INTO `vehicule` (`id`, `model`, `brand`, `type`, `category`, `color`, `serial_number`, `registering`, `available`, `purchase_date`, `purchase_price`, `place_number`, `kilometers`, `state`) VALUES
+INSERT INTO `vehicle` (`id`, `model`, `brand`, `type`, `category`, `color`, `serial_number`, `registering`, `available`, `purchase_date`, `purchase_price`, `place_number`, `kilometers`, `state`) VALUES
 (1, 'Zoe', 'renault', 'voiture', 'citadine', 'bleu', 214568, 'FGT789TGD', 0, '2017-08-17', 3150, 4, 1000, 'Rien'),
 (2, 'Zoe', 'renault', 'voiture', 'citadine', 'grise', 4531, '789CQZ456', 0, '2018-07-31', 3250, 4, 2180, 'Rien'),
 (3, 'I-pace', 'Jaguar', 'voiture', 'berline', 'grise', 1548957, 'XYZ789IOP', 1, '2018-04-02', 5890, 5, 5108, 'Rien'),

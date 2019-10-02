@@ -1,29 +1,28 @@
 package com.motus.emotion.service.impl;
 
+import com.motus.emotion.exception.NotFoundException;
 import com.motus.emotion.model.User;
 import com.motus.emotion.repository.UserRepository;
 import com.motus.emotion.service.UserService;
-import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
-import java.util.Optional;
 
-@Service(value="userService")
+@Service(value = "userService")
 public class UserServiceImpl implements UserService {
 
     private UserRepository userRepository;
 
     @Autowired
-    public UserServiceImpl(UserRepository userRepository) { this.userRepository = userRepository; }
+    public UserServiceImpl(UserRepository userRepository) {
+        this.userRepository = userRepository;
+    }
 
     @Override
     public List<User> getAll() {
-        List<User> userList = new ArrayList<>();
-        userRepository.findAll().iterator().forEachRemaining(userList::add);
-        return userList;
+        return userRepository.findAll();
     }
 
     @Override
@@ -33,8 +32,7 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public User getById(Long id) {
-        Optional<User> optionalUser = userRepository.findById(id);
-        return optionalUser.orElse(null);
+        return userRepository.findById(id).orElse(null);
     }
 
     @Override
@@ -42,20 +40,34 @@ public class UserServiceImpl implements UserService {
         userRepository.deleteById(id);
     }
 
-    public User save(User user){
+    @Override
+    public User save(User user) {
+        user.setCreationDate(new Date());
+        user.setModificationDate(new Date());
         return userRepository.save(user);
     }
 
     @Override
-    public void updateUser(User user) {
-        Optional<User> userUpdated = userRepository.findById(user.getId());
-        if(userUpdated.isPresent()) {
-            BeanUtils.copyProperties(user, userUpdated, "password");
+    public User updateUser(User user, User current) throws NotFoundException {
+        /**
+         * We need to insert a business code here
+         */
+        if (getById(current.getId()) == null){
+            throw new NotFoundException("user not found");
         }
-        userRepository.save(user);
+        user.setAddress(current.getAddress());
+        user.setFirstName(current.getFirstName());
+        user.setLastName(current.getLastName());
+        user.setBirthDay(current.getBirthDay());
+        user.setCreationDate(current.getCreationDate());
+        user.setModificationDate(new Date());
+        user.setPermitNum(current.getPermitNum());
+        return userRepository.save(user);
     }
 
     @Override
-    public boolean isUserExist(User user) { return getByMail(user.getMail()) != null; }
+    public boolean isUserExist(User user) {
+        return getByMail(user.getMail()) != null;
+    }
 }
 
