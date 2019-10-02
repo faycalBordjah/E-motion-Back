@@ -1,69 +1,67 @@
 package com.motus.emotion.service.impl;
 
 import com.motus.emotion.model.Vehicle;
-import com.motus.emotion.repository.VehiculeRepository;
+import com.motus.emotion.repository.VehicleRepository;
 import com.motus.emotion.service.VehicleService;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
-@Service(value="vehiculeService")
+@Service(value = "vehicleService")
 public class VehicleServiceImpl implements VehicleService {
 
     @Autowired
-    private VehiculeRepository vehiculeRepository;
+    private VehicleRepository vehicleRepository;
 
     @Autowired
-    public VehicleServiceImpl(VehiculeRepository vehiculeRepository) { this.vehiculeRepository = vehiculeRepository; }
-
-    @Override
-    public List<Vehicle> getAll() {
-        List<Vehicle> vehicleList = new ArrayList();
-        vehiculeRepository.findAll().iterator().forEachRemaining(vehicleList::add);
-        return vehicleList;
+    public VehicleServiceImpl(VehicleRepository vehicleRepository) {
+        this.vehicleRepository = vehicleRepository;
     }
 
     @Override
-    public Vehicle getById(Long id) {
-        Optional<Vehicle> optionalVehicule = vehiculeRepository.findById(id);
-        return optionalVehicule.isPresent() ? optionalVehicule.get() : null;
+    public List<Vehicle> getAll() {
+        return vehicleRepository.findAll();
+    }
+
+    @Override
+    public Vehicle getById(Long id){
+        return vehicleRepository.findById(id).orElse(null);
     }
 
     @Override
     public Vehicle getByType(String type) {
-        return vehiculeRepository.findByType(type);
+        return vehicleRepository.findByType(type);
     }
 
     @Override
     public Vehicle getBySerialNumber(int serialNumber) {
-        return vehiculeRepository.findBySerialNumber(serialNumber);
+        return vehicleRepository.findBySerialNumber(serialNumber);
     }
 
     @Override
     public Vehicle save(Vehicle vehicle) {
-        return vehiculeRepository.save(vehicle);
+        return vehicleRepository.save(vehicle);
     }
 
     @Override
     public void delete(Long id) {
-        vehiculeRepository.deleteById(id);
+        vehicleRepository.deleteById(id);
     }
 
     @Override
-    public void updateVehicule(Vehicle vehicle) {
-        Optional<Vehicle> vehiculeUpdated = vehiculeRepository.findById(vehicle.getId());
-        if(vehiculeUpdated != null) {
-            BeanUtils.copyProperties(vehicle, vehiculeUpdated);
+    public void updateVehicle(Vehicle vehicle) {
+        Optional<Vehicle> vehicleUpdated = vehicleRepository.findById(vehicle.getId());
+        if (vehicleUpdated.isPresent()) {
+            BeanUtils.copyProperties(vehicle, vehicleUpdated);
         }
-        vehiculeRepository.save(vehicle);
+        vehicleRepository.save(vehicle);
     }
 
     @Override
-    public boolean isVehiculeExist(Vehicle vehicle) {
+    public boolean isVehicleExist(Vehicle vehicle) {
         return getBySerialNumber(vehicle.getSerialNumber()) != null;
     }
 }

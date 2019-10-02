@@ -1,6 +1,7 @@
 package com.motus.emotion.model;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotNull;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -8,44 +9,67 @@ import java.util.Date;
 import java.util.List;
 
 @Entity
-@Table(name = "vehicule")
+@Table(name = "vehicle")
 public class Vehicle {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @NotNull(message = "model must be set ")
     @Column(nullable = false)
     private String model;
+
+    @NotNull(message = "brand must be set ")
     @Column(nullable = false)
     private String brand;
+
     @Column(nullable = false)
+    @NotNull(message = "type must be set ")
     private String type;
+
     @Column(nullable = false)
+    @NotNull(message = "category must be set ")
     private String category;
+
     @Column(nullable = false)
+    @NotNull(message = "color must be set ")
     private String color;
-    @Column(name = "serial_number", nullable = false)
+
+    @Column(nullable = false)
+    @NotNull(message = "serial number must be set ")
     private int serialNumber;
+
     @Column(nullable = false)
+    @NotNull(message = "registering must be set ")
     private String registering;
+
     @Column(nullable = false)
+    @NotNull(message = "available must be set ")
     private boolean available;
-    @Column(name = "purchase_date")
+
+    @Column(nullable = false)
+    @NotNull(message = "purchaseDate must be set ")
     private Date purchaseDate;
-    @Column(name = "purchase_price")
+
+    @Column(nullable = false)
+    @NotNull(message = "purchasePrice must be set ")
     private double purchasePrice;
-    @Column(name = "place_number", nullable = false)
+
+    @Column(nullable = false)
+    @NotNull(message = "placeNumber must be set ")
     private int placeNumber;
-    @Column()
+
+    @Column(nullable = false)
+    @NotNull(message = "kilometers must be set ")
     private int kilometers;
-    @Column()
+
+    @Column(nullable = false)
+    @NotNull(message = "state must be set ")
     private String state;
 
     public Vehicle() {
-
     }
-
 
     public Vehicle(String model, String brand, String type, String category, String color, int serialNumber, String registering
             , boolean available, double purchasePrice, int placeNumber, int kilometers, String state) {
@@ -169,7 +193,7 @@ public class Vehicle {
     }
 
     public String[] getState() {
-            String[] stateSplited = state.split(" , ");
+        String[] stateSplited = state.split(" , ");
         return stateSplited;
     }
 

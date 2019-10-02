@@ -1,16 +1,14 @@
 package com.motus.emotion.service.impl;
 
+import com.motus.emotion.exception.NotFoundException;
 import com.motus.emotion.model.User;
 import com.motus.emotion.repository.UserRepository;
 import com.motus.emotion.service.UserService;
-import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
-import java.util.Optional;
 
 @Service(value = "userService")
 public class UserServiceImpl implements UserService {
@@ -24,9 +22,7 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public List<User> getAll() {
-        List<User> userList = new ArrayList<>();
-        userRepository.findAll().iterator().forEachRemaining(userList::add);
-        return userList;
+        return userRepository.findAll();
     }
 
     @Override
@@ -36,8 +32,7 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public User getById(Long id) {
-        Optional<User> optionalUser = userRepository.findById(id);
-        return optionalUser.orElse(null);
+        return userRepository.findById(id).orElse(null);
     }
 
     @Override
@@ -53,10 +48,13 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public User updateUser(User user, User current) {
+    public User updateUser(User user, User current) throws NotFoundException {
         /**
          * We need to insert a business code here
          */
+        if (getById(current.getId()) == null){
+            throw new NotFoundException("user not found");
+        }
         user.setAddress(current.getAddress());
         user.setFirstName(current.getFirstName());
         user.setLastName(current.getLastName());

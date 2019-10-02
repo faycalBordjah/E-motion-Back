@@ -1,5 +1,6 @@
 package com.motus.emotion.controller;
 
+import com.motus.emotion.exception.NotFoundException;
 import com.motus.emotion.model.User;
 import com.motus.emotion.model.api.ApiResponse;
 import com.motus.emotion.service.UserService;
@@ -19,7 +20,6 @@ import java.util.List;
 @CrossOrigin(origins = "*")
 @Validated
 public class UserController {
-
 
     private UserService userService;
 
@@ -72,7 +72,7 @@ public class UserController {
 
     @PutMapping(value = "/{id}", produces = {MediaType.APPLICATION_JSON_VALUE})
     @ResponseBody
-    public ApiResponse<User> updateUser(@PathVariable @Valid final Long id, @RequestBody @Valid User user) {
+    public ApiResponse<User> updateUser(@PathVariable @Valid final Long id, @RequestBody @Valid User user) throws NotFoundException {
         logger.info("Updating Client with id {}", id);
         User currentUser = userService.getById(id);
         if (currentUser == null) {

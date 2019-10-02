@@ -18,7 +18,7 @@ public interface VehicleService {
 
     void delete(Long id);
 
-    void updateVehicule(Vehicle vehicle);
+    void updateVehicle(Vehicle vehicle);
 
-    boolean isVehiculeExist(Vehicle vehicle);
+    boolean isVehicleExist(Vehicle vehicle);
 }
