@@ -41,11 +41,11 @@
 -- Déchargement des données de la table `user`
 --
 
-INSERT INTO user (id, city, country,number,state,street,zip, birth_day, creation_date, first_name, last_name,mail,modification_date,password,permit_num,zip_code) VALUES
+INSERT INTO user (id, city, country,number,state,street,zip, birth_day, creation_date, first_name, last_name,mail,modification_date,password,permit_num,phone) VALUES
 (1,'paris', 'france', 1, 15, 'boulevard dAngular', 'develoville', '2016-08-25 01:23:46.0', '2016-08-25 01:23:46.0', 'Alves.Kevin@gmail.com', 'kevin.alves', 'admin',
-'2016-08-25 01:23:46.0','dddd',333,75000),
+'2016-08-25 01:23:46.0','dddd',333,"75000"),
 (2,'paris', 'france', 1, 15, 'boulevard dAngular', 'develoville', '2016-08-25 01:23:46.0', '2016-08-25 01:23:46.0', 'toto.toto@gmail.com', 'toto.toto', 'user',
-'2016-08-25 01:23:46.0','dddd',333,75000);
+'2016-08-25 01:23:46.0','dddd',333,"75000");
 -- INSERT INTO user (id, city, country,number,state,street,zip, birth_day, creation_date, first_name, last_name,mail,modification_date,password,permit_num,zip_code) VALUES
 
 

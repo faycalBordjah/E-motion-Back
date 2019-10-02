@@ -1,17 +1,26 @@
 package com.motus.emotion.model.custom;
 
+
+import javax.persistence.Column;
+
 public class Address {
 
+    @Column
     private int number;
 
+    @Column
     private String street;
 
+    @Column
     private String city;
 
+    @Column
     private String state;
 
+    @Column
     private String zip;
 
+    @Column
     private String country;
 
     public Address() { }

@@ -5,7 +5,6 @@ import com.motus.emotion.model.api.ApiResponse;
 import com.motus.emotion.service.UserService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -45,47 +44,42 @@ public class UserController {
 
     @GetMapping(value = "/{id}", produces = {MediaType.APPLICATION_JSON_VALUE})
     @ResponseBody
-    public ApiResponse<User> getUserById(@PathVariable final Long id) {
+    public ApiResponse<User> getUserById(@PathVariable @Valid final Long id) {
         logger.info("Fetching User with id {}", id);
         User user = userService.getById(id);
         if (user == null) {
-            logger.error("User with id {} not found.", id);
-            return new ApiResponse<User>(HttpStatus.NOT_FOUND.value(), "User with id " + id
+            logger.error("User with id {} is not found.", id);
+            return new ApiResponse<>(HttpStatus.NOT_FOUND.value(), "User with id " + id
                     + " not found.", userService.getById(id));
 
         }
-        return new ApiResponse<User>(HttpStatus.OK.value(), "User with id " + id
+        return new ApiResponse<>(HttpStatus.OK.value(), "User with id " + id
                 + "fetched successfully.", userService.getById(id));
 
     }
 
     @PostMapping(value = "", produces = {MediaType.APPLICATION_JSON_VALUE})
     @ResponseBody
-    public ApiResponse<User> create(@RequestBody User user) {
+    public ApiResponse<User> create(@RequestBody @Valid User user) {
         logger.info("Creating User : {}", user);
         if (userService.isUserExist(user)) {
-            logger.error("Unable to create. A User with username {} already exist", user.getMail());
+            logger.error("Unable to create. A User with username {} it already exists", user.getMail());
             return new ApiResponse<>(HttpStatus.CONFLICT.value(), "Unable to create. A User with username " +
-                    user.getMail() + " already exist.", user);
+                    user.getMail() + "it is  already exists.", user);
         }
         return new ApiResponse<>(HttpStatus.OK.value(), "User saved successfully.", userService.save(user));
     }
 
     @PutMapping(value = "/{id}", produces = {MediaType.APPLICATION_JSON_VALUE})
     @ResponseBody
-    public ApiResponse<User> updateUser(@PathVariable final Long id, @RequestBody User user) {
+    public ApiResponse<User> updateUser(@PathVariable @Valid final Long id, @RequestBody @Valid User user) {
         logger.info("Updating Client with id {}", id);
         User currentUser = userService.getById(id);
-
         if (currentUser == null) {
-            logger.error("Unable to update. User with id { } not found", id);
-            return new ApiResponse<User>(HttpStatus.NOT_FOUND.value(), "Unable to update. User with id " + id + " not found.", userService.getById(id));
+            logger.error("Unable to update. User with id {}  is not found", id);
+            return new ApiResponse<>(HttpStatus.NOT_FOUND.value(), "Unable to update. User with id " + id + " not found.", userService.getById(id));
         }
-
-        BeanUtils.copyProperties(user, currentUser);
-        userService.updateUser(currentUser);
-
-        return new ApiResponse<User>(HttpStatus.OK.value(), "User updated successfully.", userService.getById(id));
+        return new ApiResponse<>(HttpStatus.OK.value(), "User updated successfully.", userService.updateUser(currentUser,user));
     }
 
     @DeleteMapping(value = "/{id}", produces = {MediaType.APPLICATION_JSON_VALUE})

@@ -8,16 +8,19 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 
-@Service(value="userService")
+@Service(value = "userService")
 public class UserServiceImpl implements UserService {
 
     private UserRepository userRepository;
 
     @Autowired
-    public UserServiceImpl(UserRepository userRepository) { this.userRepository = userRepository; }
+    public UserServiceImpl(UserRepository userRepository) {
+        this.userRepository = userRepository;
+    }
 
     @Override
     public List<User> getAll() {
@@ -43,20 +46,30 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public User save(User user){
+    public User save(User user) {
+        user.setCreationDate(new Date());
+        user.setModificationDate(new Date());
         return userRepository.save(user);
     }
 
     @Override
-    public void updateUser(User user) {
-        Optional<User> userUpdated = userRepository.findById(user.getId());
-        if(userUpdated.isPresent()) {
-            BeanUtils.copyProperties(user, userUpdated, "password");
-        }
-        userRepository.save(user);
+    public User updateUser(User user, User current) {
+        /**
+         * We need to insert a business code here
+         */
+        user.setAddress(current.getAddress());
+        user.setFirstName(current.getFirstName());
+        user.setLastName(current.getLastName());
+        user.setBirthDay(current.getBirthDay());
+        user.setCreationDate(current.getCreationDate());
+        user.setModificationDate(new Date());
+        user.setPermitNum(current.getPermitNum());
+        return userRepository.save(user);
     }
 
     @Override
-    public boolean isUserExist(User user) { return getByMail(user.getMail()) != null; }
+    public boolean isUserExist(User user) {
+        return getByMail(user.getMail()) != null;
+    }
 }
 

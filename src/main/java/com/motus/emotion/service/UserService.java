@@ -16,7 +16,7 @@ public interface UserService {
 
     void delete(Long id);
 
-    void updateUser(User user);
+    User updateUser(User user, User current);
 
     boolean isUserExist(User user);
 }
