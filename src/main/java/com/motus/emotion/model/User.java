@@ -1,18 +1,23 @@
 package com.motus.emotion.model;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.motus.emotion.model.custom.Address;
-import org.springframework.data.annotation.LastModifiedDate;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetails;
 
 import javax.persistence.*;
 import javax.validation.constraints.Email;
+import javax.validation.constraints.Max;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Past;
+import java.util.Collection;
 import java.util.Date;
+import java.util.Set;
 
 @Entity
-@Table(name = "user")
-public class User {
+@Table(name = "user",uniqueConstraints = {
+        @UniqueConstraint(columnNames = "mail")
+})
+public class User implements UserDetails {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -37,7 +42,8 @@ public class User {
     private String mail;
 
     @Column(nullable = false)
-    /*IMPORTANT WE HAVE TO DO CHANGES WITH SPRIG SECURITY*/
+    @NotNull
+    @Max(value = 100, message = "Password contains more than 100 chars")
     private String password;
 
     @Column(nullable = false)
@@ -54,11 +60,13 @@ public class User {
     private Address address;
 
     @Column(updatable = false)
-
     private Date creationDate;
 
     @Column
     private Date modificationDate;
+
+    @ManyToMany
+    private Set<Role> roles;
 
     public User() {
     }
@@ -106,7 +114,35 @@ public class User {
         this.lastName = lastName;
     }
 
+    @Override
+    public Collection<? extends GrantedAuthority> getAuthorities() {
+        return null;
+    }
 
+    @Override
+    public String getUsername() {
+        return mail;
+    }
+
+    @Override
+    public boolean isAccountNonExpired() {
+        return false;
+    }
+
+    @Override
+    public boolean isAccountNonLocked() {
+        return false;
+    }
+
+    @Override
+    public boolean isCredentialsNonExpired() {
+        return false;
+    }
+
+    @Override
+    public boolean isEnabled() {
+        return false;
+    }
 
 
     public Date getBirthDay() {
@@ -125,6 +161,7 @@ public class User {
         this.mail = mail;
     }
 
+    @Override
     public String getPassword() {
         return password;
     }
@@ -181,9 +218,12 @@ public class User {
                 ", lastName='" + lastName + '\'' +
                 ", birthDay=" + birthDay +
                 ", mail='" + mail + '\'' +
-                ", password='" + password + '\'' +
+                ", phone='" + phone + '\'' +
                 ", permitNum=" + permitNum +
                 ", address=" + address +
+                ", creationDate=" + creationDate +
+                ", modificationDate=" + modificationDate +
+                ", roles=" + roles +
                 '}';
     }
 }
