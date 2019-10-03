@@ -13,9 +13,20 @@ public class Location {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @NotNull(message = "Start date must be set ")
+    @Column(nullable = false)
     private LocalDate starDate;
+
+    @Column(nullable = false)
+    @NotNull(message = "End date must be set ")
     private LocalDate endDate;
+
+    @NotNull(message = "Start time must be set ")
+    @Column(nullable = false)
     private Time startTime;
+
+    @Column(nullable = false)
+    @NotNull(message = "End time must be set ")
     private Time endTime;
 
     @OneToOne(targetEntity = User.class)

@@ -6,6 +6,8 @@ import com.motus.emotion.service.LocationService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service(value = "LocationService")
 public class LocationServiceImpl implements LocationService {
 
@@ -15,5 +17,10 @@ public class LocationServiceImpl implements LocationService {
     @Override
     public Location create(Location location) {
         return locationRepository.save(location);
+    }
+
+    @Override
+    public List<Location> findByUser(Long userId) {
+        return locationRepository.findByUser(userId);
     }
 }

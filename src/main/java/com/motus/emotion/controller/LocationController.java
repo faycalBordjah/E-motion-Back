@@ -1,6 +1,5 @@
 package com.motus.emotion.controller;
 
-import com.motus.emotion.exception.NotFoundException;
 import com.motus.emotion.model.Location;
 import com.motus.emotion.model.User;
 import com.motus.emotion.model.api.ApiResponse;
@@ -16,9 +15,10 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
+import java.util.List;
 
 @RestController
-@RequestMapping(value = "/emotion/api/location")
+@RequestMapping(value = "/emotion/api/location/{userId}")
 @Validated
 public class LocationController {
 
@@ -34,18 +34,29 @@ public class LocationController {
         this.userService = userService;
     }
 
-    @PostMapping(value = "/{userId}",
+    @PostMapping(value = "",
             consumes = {MediaType.APPLICATION_JSON_VALUE},
             produces = {MediaType.APPLICATION_JSON_VALUE
-    })
+            })
     @ResponseBody
-    public ApiResponse<Location> create(@PathVariable @NotNull Long userId, @RequestBody @Valid Location location) throws NotFoundException {
-            logger.info("fetching the actor of location");
-            User user = userService.getById(userId);
-            if (user == null){
-                throw new NotFoundException("");
-            }
-            location.setUser(user);
-        return new ApiResponse<>(HttpStatus.OK.value(), "Location created successfully", locationService.create(location));
+    public ApiResponse<Location> create(@PathVariable @NotNull Long userId,
+                                        @RequestBody @Valid Location location) {
+        logger.info("fetching the actor of location");
+        User user = userService.getById(userId);
+        location.setUser(user);
+        return new ApiResponse<>(HttpStatus.OK.value(),
+                "Location created successfully",
+                locationService.create(location));
+    }
+
+    @GetMapping(value = "", consumes = {MediaType.APPLICATION_JSON_VALUE},
+            produces = {MediaType.APPLICATION_JSON_VALUE
+            })
+    @ResponseBody
+    public ApiResponse<List<Location>> getLocationByUser(@PathVariable @NotNull Long userId
+    ) {
+        return new ApiResponse<>(HttpStatus.OK.value(),
+                "Locations fetched successfully",
+                locationService.findByUser(userId));
     }
 }
