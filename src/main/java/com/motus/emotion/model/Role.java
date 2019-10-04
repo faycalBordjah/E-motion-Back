@@ -1,12 +1,13 @@
 package com.motus.emotion.model;
 
+import org.hibernate.annotations.NaturalId;
 import org.springframework.security.core.GrantedAuthority;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 
 @Entity
-@Table(name = "role")
+@Table(name = "roles")
 public class Role implements GrantedAuthority {
 
     @Id
@@ -15,7 +16,9 @@ public class Role implements GrantedAuthority {
 
     @Column(nullable = false)
     @NotNull
-    private String roleName;
+    @Enumerated(value = EnumType.STRING)
+    @NaturalId
+    private RoleName roleName;
 
     @Column(name="description")
     @NotNull
@@ -29,11 +32,11 @@ public class Role implements GrantedAuthority {
         this.id = id;
     }
 
-    public String getRoleName() {
+    public RoleName getRoleName() {
         return roleName;
     }
 
-    public void setRoleName(String roleName) {
+    public void setRoleName(RoleName roleName) {
         this.roleName = roleName;
     }
 
@@ -47,6 +50,6 @@ public class Role implements GrantedAuthority {
 
     @Override
     public String getAuthority() {
-        return roleName;
+        return roleName.toString();
     }
 }

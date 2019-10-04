@@ -3,10 +3,10 @@ package com.motus.emotion.dto;
 import javax.validation.constraints.NotNull;
 
 public class AuthDto {
-    @NotNull
+    @NotNull(message = "username must be set")
     private String username;
 
-    @NotNull
+    @NotNull(message = "password must be set")
     private String password;
 
 

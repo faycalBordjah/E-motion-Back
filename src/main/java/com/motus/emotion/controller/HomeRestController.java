@@ -2,46 +2,49 @@ package com.motus.emotion.controller;
 
 import com.motus.emotion.dto.AuthDto;
 import com.motus.emotion.dto.JwtResponse;
+import com.motus.emotion.dto.UserDto;
+import com.motus.emotion.exception.AlreadyExistException;
+import com.motus.emotion.exception.NotFoundException;
 import com.motus.emotion.model.User;
 import com.motus.emotion.model.api.ApiResponse;
-import com.motus.emotion.security.jwt.JwtProvider;
+import com.motus.emotion.service.AuthenticationService;
+import com.motus.emotion.service.UserService;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.authentication.AuthenticationManager;
-import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
-import org.springframework.security.core.Authentication;
-import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.validation.annotation.Validated;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 
+@RestController
 @RequestMapping(value = "/emotion/api/authenticate")
 @Validated
 public class HomeRestController {
+
+    private final Logger LOGGER = LoggerFactory.getLogger(HomeRestController.class);
+
     @Autowired
-    private AuthenticationManager authenticationManager;
+    private UserService userService;
 
-    private JwtProvider jwtProvider;
+    @Autowired
+    private AuthenticationService authenticationService;
 
-    @PostMapping("")
+    @PostMapping(value = "/signin", consumes = {MediaType.APPLICATION_JSON_VALUE},
+            produces = {MediaType.APPLICATION_JSON_VALUE
+            })
     @ResponseBody
-    public ApiResponse<JwtResponse> createJwtAuth(@RequestBody @Valid AuthDto loginDto) {
-        Authentication authentication = authenticationManager.authenticate(
-                new UsernamePasswordAuthenticationToken(
-                        loginDto.getUsername(),
-                        loginDto.getPassword())
-        );
-        SecurityContextHolder.getContext().setAuthentication(authentication);
-        String jwt = jwtProvider.createToken()
-        return null;
+    public ApiResponse<JwtResponse> createJwtAuth(@RequestBody @Valid AuthDto authDto) throws NotFoundException, AlreadyExistException {
+        JwtResponse token = new JwtResponse(authenticationService.authenticateJwt(authDto));
+        return new ApiResponse<>(HttpStatus.OK.value(), "Token generated with success", token);
     }
 
-
-    public User singUp(AuthDto loginDto) {
-        return null;
+    @PostMapping("/signup")
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
+    public ApiResponse<User> signup(@RequestBody @Valid UserDto userDto) throws AlreadyExistException, NotFoundException {
+        return new ApiResponse<User>(HttpStatus.CREATED.value(), "", authenticationService.signUp(userDto));
     }
-
 }

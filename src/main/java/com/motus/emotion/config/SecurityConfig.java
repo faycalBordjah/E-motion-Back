@@ -4,6 +4,7 @@ import com.motus.emotion.security.CustomUserDetailsService;
 import com.motus.emotion.security.jwt.JwtEntryPoint;
 import com.motus.emotion.security.jwt.JwtFilter;
 import com.motus.emotion.security.jwt.JwtProvider;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpMethod;
@@ -28,9 +29,18 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 )
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
+
+    @Autowired
     private JwtProvider jwtProvider;
+
+    @Autowired
     private CustomUserDetailsService customUserDetailsService;
+
+    @Autowired
     private JwtEntryPoint jwtEntryPoint;
+
+    @Autowired
+    private JwtFilter jwtFilter;
 
     @Bean
     public PasswordEncoder passwordEncoder() {
@@ -50,7 +60,6 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     }
     @Override
     public void configure(HttpSecurity http) throws Exception {
-        JwtFilter customFilter = new JwtFilter(jwtProvider);
 
         http
                 .cors()
@@ -74,16 +83,16 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                         "/**/*.css",
                         "/**/*.js")
                 .permitAll()
-                .antMatchers("/api/auth/**")
+                .antMatchers("/emotion/api/authenticate/**")
                 .permitAll()
-                .antMatchers("/api/user/checkUsernameAvailability", "/api/user/checkEmailAvailability")
-                .permitAll()
-                .antMatchers(HttpMethod.GET, "/api/polls/**", "/api/users/**")
-                .permitAll()
+               // .antMatchers("/emotion/api/user/checkUsernameAvailability", "/api/user/checkEmailAvailability")
+               // .permitAll()
+              //  .antMatchers(HttpMethod.GET, "/emotion/api/vehicle/**", "/emotion/api/users/**")
+                //.permitAll()
                 .anyRequest()
                 .authenticated();
 
-                http.addFilterBefore(customFilter, UsernamePasswordAuthenticationFilter.class);
+                http.addFilterBefore(jwtFilter, UsernamePasswordAuthenticationFilter.class);
     }
 
 }
