@@ -1,9 +1,13 @@
 package com.motus.emotion.service.impl;
 
+import com.motus.emotion.exception.AlreadyExistException;
 import com.motus.emotion.exception.NotFoundException;
 import com.motus.emotion.model.User;
 import com.motus.emotion.repository.UserRepository;
 import com.motus.emotion.service.UserService;
+import org.slf4j.ILoggerFactory;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -12,6 +16,8 @@ import java.util.List;
 
 @Service(value = "userService")
 public class UserServiceImpl implements UserService {
+
+    private final Logger LOGGER = LoggerFactory.getLogger(UserServiceImpl.class);
 
     private UserRepository userRepository;
 
@@ -26,8 +32,11 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public User getByMail(String mail) {
-        return userRepository.findByMail(mail);
+    public User getByMail(String mail) throws NotFoundException {
+        if (userRepository.findByMail(mail).isEmpty()){
+            throw new NotFoundException("user not found");
+        }
+        return userRepository.findByMail(mail).get();
     }
 
     @Override
@@ -41,7 +50,7 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public User save(User user) {
+    public User save(User user){
         user.setCreationDate(new Date());
         user.setModificationDate(new Date());
         return userRepository.save(user);
@@ -66,8 +75,8 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public boolean isUserExist(User user) {
-        return getByMail(user.getMail()) != null;
+    public boolean isUserExist(String mail) throws NotFoundException {
+        return getByMail(mail) != null;
     }
 }
 

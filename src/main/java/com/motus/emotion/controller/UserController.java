@@ -58,18 +58,6 @@ public class UserController {
 
     }
 
-    @PostMapping(value = "", produces = {MediaType.APPLICATION_JSON_VALUE})
-    @ResponseBody
-    public ApiResponse<User> create(@RequestBody @Valid User user) {
-        logger.info("Creating User : {}", user);
-        if (userService.isUserExist(user)) {
-            logger.error("Unable to create. A User with username {} it already exists", user.getMail());
-            return new ApiResponse<>(HttpStatus.CONFLICT.value(), "Unable to create. A User with username " +
-                    user.getMail() + "it is  already exists.", user);
-        }
-        return new ApiResponse<>(HttpStatus.OK.value(), "User saved successfully.", userService.save(user));
-    }
-
     @PutMapping(value = "/{id}", produces = {MediaType.APPLICATION_JSON_VALUE})
     @ResponseBody
     public ApiResponse<User> updateUser(@PathVariable @Valid final Long id, @RequestBody @Valid User user) throws NotFoundException {
