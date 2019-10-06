@@ -3,8 +3,8 @@ package com.motus.emotion.dto;
 import javax.validation.constraints.NotNull;
 
 public class AuthDto {
-    @NotNull(message = "username must be set")
-    private String username;
+    @NotNull(message = "mail must be set")
+    private String mail;
 
     @NotNull(message = "password must be set")
     private String password;
@@ -18,20 +18,20 @@ public class AuthDto {
 
     /**
      * Full constructor
-     * @param username The user email
+     * @param mail The user email
      * @param password The user password
      */
-    public AuthDto(String username, String password) {
-        this.username = username;
+    public AuthDto(String mail, String password) {
+        this.mail = mail;
         this.password = password;
     }
 
-    public String getUsername() {
-        return username;
+    public String getMail() {
+        return mail;
     }
 
-    public void setUsername(String username) {
-        this.username = username;
+    public void setMail(String mail) {
+        this.mail = mail;
     }
 
     public String getPassword() {

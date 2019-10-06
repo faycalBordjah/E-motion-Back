@@ -18,10 +18,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
-import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
-import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 import org.springframework.stereotype.Service;
 
 import java.util.Collections;
@@ -57,10 +55,10 @@ public class AuthenticationServiceImpl implements AuthenticationService {
     @Override
     public String authenticateJwt(AuthDto authDto) throws NotFoundException {
         LOGGER.info("New user attempting to sign in");
-        if (userRepository.findByMail(authDto.getUsername()).isEmpty()) {
-            throw new NotFoundException(authDto.getUsername());
+        if (userRepository.findByMail(authDto.getMail()).isEmpty()) {
+            throw new NotFoundException(authDto.getMail());
         }
-        Authentication authentication = authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(authDto.getUsername(), authDto.getPassword()));
+        Authentication authentication = authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(authDto.getMail(), authDto.getPassword()));
         SecurityContextHolder.getContext().setAuthentication(authentication);
         return jwtProvider.generateToken(authentication);
     }
