@@ -9,7 +9,7 @@ import java.util.HashSet;
 import java.util.Set;
 
 @Entity
-@Table(name = "user",uniqueConstraints = {
+@Table(name = "users",uniqueConstraints = {
         @UniqueConstraint(columnNames = "mail")
 })
 public class User {
@@ -49,17 +49,22 @@ public class User {
     @Column
     private Date modificationDate;
 
+
     @ManyToMany(fetch = FetchType.LAZY)
     @JoinTable(name = "user_roles",
             joinColumns = @JoinColumn(name = "user_id"),
             inverseJoinColumns = @JoinColumn(name = "role_id"))
     private Set<Role> roles = new HashSet<>();
 
+    public User() {
+    }
+
     public User(UserDto userDto) {
         this.firstName = userDto.getFirstName();
         this.lastName = userDto.getLastName();
         this.birthDay = userDto.getBirthDay();
         this.mail = userDto.getMail();
+        this.phone = userDto.getPhone();
         this.password = userDto.getPassword();
         this.permitNum = userDto.getPermitNum();
         this.address = userDto.getAddress();
