@@ -3,3 +3,7 @@ jdk:
   - openjdk11
 services:
   - mysql
+before_script:
+  - mysql -u root -e "CREATE DATABASE emotion;"
+  - mysql -u root -e "CREATE USER 'motus'@'localhost' IDENTIFIED BY 'secret';"
+  - mysql -u root -e "GRANT ALL ON emotion.* TO 'motus'@'localhost';"
