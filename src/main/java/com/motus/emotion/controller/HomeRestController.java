@@ -28,9 +28,6 @@ public class HomeRestController {
     private final Logger LOGGER = LoggerFactory.getLogger(HomeRestController.class);
 
     @Autowired
-    private UserService userService;
-
-    @Autowired
     private AuthenticationService authenticationService;
 
     @PostMapping(value = "/signin", consumes = {MediaType.APPLICATION_JSON_VALUE},
@@ -43,8 +40,7 @@ public class HomeRestController {
     }
 
     @PostMapping("/signup")
-    @PreAuthorize("hasRole('ROLE_ADMIN')")
     public ApiResponse<User> signup(@RequestBody @Valid UserDto userDto) throws AlreadyExistException, NotFoundException {
-        return new ApiResponse<User>(HttpStatus.CREATED.value(), "", authenticationService.signUp(userDto));
+        return new ApiResponse<>(HttpStatus.OK.value(), "User created with success", authenticationService.signUp(userDto));
     }
 }

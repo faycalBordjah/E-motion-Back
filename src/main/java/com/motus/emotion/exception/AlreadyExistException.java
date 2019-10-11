@@ -1,7 +1,14 @@
 package com.motus.emotion.exception;
 
-public class AlreadyExistException extends Exception {
-    public AlreadyExistException(String message) {
-        super(message);
+import org.springframework.http.HttpStatus;
+import org.springframework.web.bind.annotation.ResponseStatus;
+
+@ResponseStatus(HttpStatus.CONFLICT)
+public class AlreadyExistException extends RuntimeException {
+
+    private String resourceName;
+
+    public AlreadyExistException(String resourceName) {
+        super(String.format("The %s already exits ", resourceName));
     }
 }

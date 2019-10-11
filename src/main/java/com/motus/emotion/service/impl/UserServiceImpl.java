@@ -1,11 +1,9 @@
 package com.motus.emotion.service.impl;
 
-import com.motus.emotion.exception.AlreadyExistException;
 import com.motus.emotion.exception.NotFoundException;
 import com.motus.emotion.model.User;
 import com.motus.emotion.repository.UserRepository;
 import com.motus.emotion.service.UserService;
-import org.slf4j.ILoggerFactory;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -51,6 +49,7 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public User save(User user){
+        LOGGER.info("Saving user");
         user.setCreationDate(new Date());
         user.setModificationDate(new Date());
         return userRepository.save(user);

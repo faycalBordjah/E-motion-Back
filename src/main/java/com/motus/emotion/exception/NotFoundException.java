@@ -1,7 +1,14 @@
 package com.motus.emotion.exception;
 
-public class NotFoundException extends Exception {
-    public NotFoundException(String message) {
-        super(message);
+import org.springframework.http.HttpStatus;
+import org.springframework.web.bind.annotation.ResponseStatus;
+
+@ResponseStatus(HttpStatus.NOT_FOUND)
+public class NotFoundException extends RuntimeException {
+
+    private String resourceName;
+
+    public NotFoundException(String resourceName) {
+        super(String.format("The %s not found", resourceName));
     }
 }

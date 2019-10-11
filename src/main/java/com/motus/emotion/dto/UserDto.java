@@ -35,8 +35,9 @@ public class UserDto {
     @NotNull(message = "permitNum must be set  must be set")
     private int permitNum;
 
-    @NotNull(message = "Address  must be set")
+    // @NotNull(message = "Address  must be set")
     private Address address;
+
 
     public String getFirstName() {
         return firstName;
