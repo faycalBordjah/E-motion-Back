@@ -16,7 +16,7 @@ import javax.validation.Valid;
 import java.util.List;
 
 @RestController
-@RequestMapping(value = "/emotion/api/user")
+@RequestMapping(value = "/emotion/api/users")
 @CrossOrigin(origins = "*")
 @Validated
 public class UserController {
