@@ -17,8 +17,22 @@
 -- /*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
 -- /*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
 -- /*!40101 SET NAMES utf8mb4 */;
-INSERT IGNORE INTO roles(role_name) VALUES('USER_ROLE');
-INSERT IGNORE INTO roles(role_name) VALUES('ADMIN_ROLE');
+INSERT IGNORE INTO roles(role_name, description) VALUES('ADMIN_ROLE','Administration');
+INSERT IGNORE INTO roles(role_name,description) VALUES('USER_ROLE','Custom user');
+
+
+INSERT INTO users (id, first_name, last_name, mail,  creation_date,modification_date,password,permit_num,phone,birth_day,
+                   city,country,number,state,street,zip) VALUES
+(1,  'emotion_admin', 'local','admin@local.com','2019-10-08 21:37:00.996000000','2019-10-08 21:37:00.996000000',
+ '$2a$10$98wmQ9r7xEMl2y.fiDKleeQmMA3xThH1q64GTytcH14xDf.gO4VsW',309090909,0768686868,'2019-10-08 21:37:00.996000000','paris','france',12,
+ 'paris', 'rue claude til', 75012);
+-- (2,  'csr_jane', '$2a$12$ZhGS.zcWt1gnZ9xRNp7inOvo5hIT0ngN7N.pN939cShxKvaQYHnnu', 'Jane', 'Doe'),
+-- (3,  'csr_mark', '$2a$12$ZhGS.zcWt1gnZ9xRNp7inOvo5hIT0ngN7N.pN939cShxKvaQYHnnu', 'Mark', 'Smith'),
+-- (4,  'wally', '$2a$12$ZhGS.zcWt1gnZ9xRNp7inOvo5hIT0ngN7N.pN939cShxKvaQYHnnu', 'Walter', 'Adams');
+
+-- Initialize the admin user role
+
+INSERT INTO user_roles (user_id, role_id) VALUES (1,1);
 --
 -- Base de données :  `e-motion`
 --

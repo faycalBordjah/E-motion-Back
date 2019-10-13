@@ -38,8 +38,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     private JwtEntryPoint jwtEntryPoint;
 
     @Bean
-    public JwtFilter jwtFilter() {
-        return new JwtFilter();
+    public JwtFilter jwtFilter(CustomUserDetailsService customUserDetailsService) {
+        return new JwtFilter(customUserDetailsService);
     }
 
     ;
@@ -100,10 +100,12 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .permitAll()
                 .antMatchers("/emotion/api/authenticate/**")
                 .permitAll()
+                .antMatchers("/emotion/api/users/**").hasAuthority("ADMIN_ROLE")
+                .antMatchers("/emotion/api/vehicles").permitAll()
                 .anyRequest()
                 .authenticated();
 
-        http.addFilterBefore(jwtFilter(), UsernamePasswordAuthenticationFilter.class);
+        http.addFilterBefore(jwtFilter(customUserDetailsService), UsernamePasswordAuthenticationFilter.class);
     }
 
 }
