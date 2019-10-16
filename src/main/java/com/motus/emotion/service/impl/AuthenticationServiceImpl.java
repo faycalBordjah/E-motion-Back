@@ -22,7 +22,10 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import java.util.Arrays;
 import java.util.Collections;
+import java.util.List;
+import java.util.Set;
 
 @Service(value = "authenticationService")
 public class AuthenticationServiceImpl implements AuthenticationService {
@@ -58,9 +61,10 @@ public class AuthenticationServiceImpl implements AuthenticationService {
         if (userRepository.findByMail(authDto.getMail()).isEmpty()) {
             throw new NotFoundException(authDto.getMail());
         }
+        List<Role> roles = userRepository.findByMail(authDto.getMail()).get().getRoles();
         Authentication authentication = authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(authDto.getMail(), authDto.getPassword()));
         SecurityContextHolder.getContext().setAuthentication(authentication);
-        return jwtProvider.generateToken(authentication);
+        return jwtProvider.generateToken(authentication, roles);
     }
 
     @Override
@@ -69,14 +73,11 @@ public class AuthenticationServiceImpl implements AuthenticationService {
             LOGGER.info("Unable to create. A User with username {} it already exists", userDto.getMail());
             throw new AlreadyExistException(userDto.getMail());
         }
-
         User user = new User(userDto);
         Role userRole = roleRepository.findByRoleName(RoleName.USER_ROLE).
                 orElseThrow(() -> new NotFoundException("Role not found"));
-
         user.setPassword(passwordEncoder.encode(user.getPassword()));
-        user.setRoles(Collections.singleton(userRole));
-
+        user.setRoles(Collections.singletonList(userRole));
         return userService.save(user);
     }
 }

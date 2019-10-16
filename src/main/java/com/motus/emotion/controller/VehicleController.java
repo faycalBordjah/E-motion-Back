@@ -14,8 +14,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping(value = "/emotion/api/vehicle")
-@CrossOrigin(origins = "*")
+@RequestMapping(value = "/emotion/api/vehicles")
 public class VehicleController {
 
 
@@ -32,7 +31,7 @@ public class VehicleController {
         List<Vehicle> vehicleList = vehicleService.getAll();
         if(vehicleList.isEmpty()){
             logger.error("Unable to fetch an empty list");
-            return new ApiResponse<>(HttpStatus.OK.value(),"Unable to fetch an empty list.", vehicleService.getAll());
+            return new ApiResponse<>(HttpStatus.NOT_FOUND.value(),"Unable to fetch an empty list.", vehicleService.getAll());
         }
         return new ApiResponse<>(HttpStatus.OK.value(),"User list fetched successfully.", vehicleService.getAll());
     }
