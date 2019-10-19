@@ -18,7 +18,7 @@ import javax.validation.constraints.NotNull;
 import java.util.List;
 
 @RestController
-@RequestMapping(value = "/emotion/api/location/{userId}")
+@RequestMapping(value = "/emotion/api/user/locations")
 @Validated
 public class LocationRestController {
 
@@ -34,7 +34,7 @@ public class LocationRestController {
         this.userService = userService;
     }
 
-    @PostMapping(value = "",
+    @PostMapping(value = "/{userId}",
             consumes = {MediaType.APPLICATION_JSON_VALUE},
             produces = {MediaType.APPLICATION_JSON_VALUE
             })
@@ -49,7 +49,7 @@ public class LocationRestController {
                 locationService.create(location));
     }
 
-    @GetMapping(value = "", consumes = {MediaType.APPLICATION_JSON_VALUE},
+    @GetMapping(value = "/{userId}", consumes = {MediaType.APPLICATION_JSON_VALUE},
             produces = {MediaType.APPLICATION_JSON_VALUE
             })
     @ResponseBody
