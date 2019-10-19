@@ -102,6 +102,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers("/emotion/api/admin/**").hasAuthority("ADMIN_ROLE")
                 .antMatchers("/emotion/api/user/**").hasAnyAuthority("ADMIN_ROLE","USER_ROLE")
                 .antMatchers("/emotion/api/vehicles").permitAll()
+                .antMatchers("/v2/api-docs").permitAll()
+                .antMatchers("/swagger-ui.html").permitAll()
                 .anyRequest()
                 .authenticated();
 
