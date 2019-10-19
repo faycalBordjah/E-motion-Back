@@ -3,6 +3,8 @@ package com.motus.emotion.controller;
 import com.motus.emotion.model.Vehicle;
 import com.motus.emotion.model.api.ApiResponse;
 import com.motus.emotion.service.VehicleService;
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,6 +19,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping(value = "/emotion/api/vehicles")
+@Api("vehicle api for anonymous")
 public class VehicleController {
 
 
@@ -31,6 +34,7 @@ public class VehicleController {
 
     @GetMapping(value = "", produces = {MediaType.APPLICATION_JSON_VALUE})
     @ResponseBody
+    @ApiOperation(value = "get all vehicle for anonymous")
     public ApiResponse<List<Vehicle>> getAllVehicles() {
         logger.info("Fetching all Vehicles");
         List<Vehicle> vehicleList = vehicleService.getAll();

@@ -3,6 +3,9 @@ package com.motus.emotion.controller.admin;
 import com.motus.emotion.model.Vehicle;
 import com.motus.emotion.model.api.ApiResponse;
 import com.motus.emotion.service.VehicleService;
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
+import io.swagger.annotations.ApiParam;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.BeanUtils;
@@ -11,7 +14,9 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
 
-@RestController("emotion/api/admin/vehicles")
+@RestController
+@RequestMapping(value = "emotion/api/admin/vehicles")
+@Api("Api for admin responsible of vehicles")
 public class VehiclesRestController {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(VehiclesRestController.class);
@@ -22,7 +27,8 @@ public class VehiclesRestController {
 
     @GetMapping(value = "/{id}", produces = {MediaType.APPLICATION_JSON_VALUE})
     @ResponseBody
-    public ApiResponse<Vehicle> getVehicleById(@PathVariable final Long id) {
+    @ApiOperation(value = "get a vehicle by it id")
+    public ApiResponse<Vehicle> getVehicleById(@PathVariable @ApiParam final Long id) {
         LOGGER.info("Fetching Vehicle with id {}", id);
         Vehicle vehicle = vehicleService.getById(id);
         if (vehicle == null) {
@@ -36,6 +42,7 @@ public class VehiclesRestController {
     }
 
     @PostMapping(value = "", produces = {MediaType.APPLICATION_JSON_VALUE})
+    @ApiOperation(value = "add a vehicle")
     @ResponseBody
     public ApiResponse<Vehicle> create(@RequestBody Vehicle vehicle) {
         LOGGER.info("Creating Vehicle : {}", vehicle);
@@ -55,7 +62,8 @@ public class VehiclesRestController {
 
     @PutMapping(value = "/{id}", produces = {MediaType.APPLICATION_JSON_VALUE})
     @ResponseBody
-    public ApiResponse<Vehicle> updateVehicle(@PathVariable final Long id, @RequestBody Vehicle vehicle) {
+    @ApiOperation(value = "update a vehicle information")
+    public ApiResponse<Vehicle> updateVehicle(@PathVariable @ApiParam final Long id, @RequestBody Vehicle vehicle) {
         LOGGER.info("Updating Vehicle with id {}", id);
         Vehicle currentVehicle = vehicleService.getById(id);
 
@@ -72,7 +80,8 @@ public class VehiclesRestController {
 
     @DeleteMapping(value = "/{id}", produces = {MediaType.APPLICATION_JSON_VALUE})
     @ResponseBody
-    public ApiResponse<Vehicle> delete(@PathVariable final Long id) {
+    @ApiOperation(value = "delete a vehicle ")
+    public ApiResponse<Vehicle> delete(@PathVariable @ApiParam final Long id) {
         LOGGER.info("Fetching & Deleting Vehicle with id {}", id);
         Vehicle vehicle = vehicleService.getById(id);
 
