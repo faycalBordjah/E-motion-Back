@@ -4,6 +4,9 @@ import com.motus.emotion.exception.NotFoundException;
 import com.motus.emotion.model.User;
 import com.motus.emotion.model.api.ApiResponse;
 import com.motus.emotion.service.UserService;
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
+import io.swagger.annotations.ApiParam;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,6 +21,7 @@ import java.util.List;
 @RestController
 @RequestMapping(value = "/emotion/api/admin")
 @Validated
+@Api("Api for user rest service")
 public class UsersRestController {
 
     private UserService userService;
@@ -30,6 +34,7 @@ public class UsersRestController {
     }
 
     @GetMapping(value = "/users", produces = {MediaType.APPLICATION_JSON_VALUE})
+    @ApiOperation(value = "get all available users")
     @ResponseBody
     public ApiResponse<List<User>> getAllUsers() {
         logger.info("Fetching all Users");
@@ -43,7 +48,8 @@ public class UsersRestController {
 
     @GetMapping(value = "/users/{userId}", produces = {MediaType.APPLICATION_JSON_VALUE})
     @ResponseBody
-    public ApiResponse<User> getUserById(@PathVariable @Valid final Long userId) {
+    @ApiOperation(value = "get a user by his id")
+    public ApiResponse<User> getUserById(@PathVariable @ApiParam final Long userId) {
         logger.info("Fetching User with id {}", userId);
         User user = userService.getById(userId);
         if (user == null) {
@@ -59,7 +65,8 @@ public class UsersRestController {
 
     @PutMapping(value = "/users/{userId}", produces = {MediaType.APPLICATION_JSON_VALUE})
     @ResponseBody
-    public ApiResponse<User> updateUser(@PathVariable @Valid final Long userId, @RequestBody @Valid User user) throws NotFoundException {
+    @ApiOperation(value = "update user information")
+    public ApiResponse<User> updateUser(@PathVariable @ApiParam final Long userId, @RequestBody @Valid User user) throws NotFoundException {
         logger.info("Updating Client with id {}", userId);
         User currentUser = userService.getById(userId);
         if (currentUser == null) {
@@ -71,7 +78,8 @@ public class UsersRestController {
 
     @DeleteMapping(value = "/users/{userId}", produces = {MediaType.APPLICATION_JSON_VALUE})
     @ResponseBody
-    public ApiResponse<User> delete(@PathVariable final Long userId) {
+    @ApiOperation(value = "delete a user")
+    public ApiResponse<User> delete(@PathVariable @ApiParam final Long userId) {
         logger.info("Fetching & Deleting User with id {}", userId);
         User user = userService.getById(userId);
 

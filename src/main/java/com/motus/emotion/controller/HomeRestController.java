@@ -9,6 +9,8 @@ import com.motus.emotion.model.User;
 import com.motus.emotion.model.api.ApiResponse;
 import com.motus.emotion.service.AuthenticationService;
 import com.motus.emotion.service.UserService;
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,6 +25,7 @@ import javax.validation.Valid;
 @RestController
 @RequestMapping(value = "/emotion/api/authenticate")
 @Validated
+@Api("authentication api")
 public class HomeRestController {
 
     private final Logger LOGGER = LoggerFactory.getLogger(HomeRestController.class);
@@ -34,12 +37,14 @@ public class HomeRestController {
             produces = {MediaType.APPLICATION_JSON_VALUE
             })
     @ResponseBody
+    @ApiOperation(value = "generate a token")
     public ApiResponse<JwtResponse> createJwtAuth(@RequestBody @Valid AuthDto authDto) throws NotFoundException, AlreadyExistException {
         JwtResponse token = new JwtResponse(authenticationService.authenticateJwt(authDto));
         return new ApiResponse<>(HttpStatus.OK.value(), "Token generated with success", token);
     }
 
     @PostMapping("/signup")
+    @ApiOperation(value = "register a user")
     public ApiResponse<User> signup(@RequestBody @Valid UserDto userDto) throws AlreadyExistException, NotFoundException {
         return new ApiResponse<>(HttpStatus.OK.value(), "User created with success", authenticationService.signUp(userDto));
     }

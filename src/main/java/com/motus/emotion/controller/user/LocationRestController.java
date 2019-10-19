@@ -5,6 +5,9 @@ import com.motus.emotion.model.User;
 import com.motus.emotion.model.api.ApiResponse;
 import com.motus.emotion.service.LocationService;
 import com.motus.emotion.service.UserService;
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
+import io.swagger.annotations.ApiParam;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,6 +23,7 @@ import java.util.List;
 @RestController
 @RequestMapping(value = "/emotion/api/user/locations")
 @Validated
+@Api("Api for simple user locations")
 public class LocationRestController {
 
     Logger logger = LoggerFactory.getLogger(LocationRestController.class);
@@ -39,7 +43,8 @@ public class LocationRestController {
             produces = {MediaType.APPLICATION_JSON_VALUE
             })
     @ResponseBody
-    public ApiResponse<Location> create(@PathVariable @NotNull Long userId,
+    @ApiOperation(value = "register a user")
+    public ApiResponse<Location> create(@PathVariable @NotNull @ApiParam Long userId,
                                         @RequestBody @Valid Location location) {
         logger.info("fetching the actor of location");
         User user = userService.getById(userId);
@@ -53,7 +58,7 @@ public class LocationRestController {
             produces = {MediaType.APPLICATION_JSON_VALUE
             })
     @ResponseBody
-    public ApiResponse<List<Location>> getLocationByUser(@PathVariable @NotNull Long userId
+    public ApiResponse<List<Location>> getLocationByUser(@PathVariable @NotNull @ApiParam Long userId
     ) {
         return new ApiResponse<>(HttpStatus.OK.value(),
                 "Locations fetched successfully",
