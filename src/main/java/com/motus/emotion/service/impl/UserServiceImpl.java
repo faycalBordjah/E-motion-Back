@@ -67,7 +67,6 @@ public class UserServiceImpl implements UserService {
         user.setFirstName(current.getFirstName());
         user.setLastName(current.getLastName());
         user.setBirthDay(current.getBirthDay());
-        user.setCreationDate(current.getCreationDate());
         user.setModificationDate(new Date());
         user.setPermitNum(current.getPermitNum());
         return userRepository.save(user);
