@@ -8,4 +8,6 @@ public interface LocationService {
     Location create(Location location);
 
     List<Location> findByUser(Long userId);
+
+    List<Location> findAll();
 }

@@ -19,7 +19,6 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 import org.springframework.web.servlet.config.annotation.CorsRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
-import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
 
 @Configuration
 @EnableWebSecurity
@@ -100,7 +99,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .permitAll()
                 .antMatchers("/emotion/api/authenticate/**")
                 .permitAll()
-                .antMatchers("/emotion/api/users/**").hasAuthority("ADMIN_ROLE")
+                .antMatchers("/emotion/api/admin/**").hasAuthority("ADMIN_ROLE")
+                .antMatchers("/emotion/api/user/**").hasAnyAuthority("ADMIN_ROLE","USER_ROLE")
                 .antMatchers("/emotion/api/vehicles").permitAll()
                 .anyRequest()
                 .authenticated();

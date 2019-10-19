@@ -1,4 +1,4 @@
-package com.motus.emotion.controller;
+package com.motus.emotion.controller.user;
 
 import com.motus.emotion.model.Location;
 import com.motus.emotion.model.User;
@@ -20,16 +20,16 @@ import java.util.List;
 @RestController
 @RequestMapping(value = "/emotion/api/location/{userId}")
 @Validated
-public class LocationController {
+public class LocationRestController {
 
-    Logger logger = LoggerFactory.getLogger(LocationController.class);
+    Logger logger = LoggerFactory.getLogger(LocationRestController.class);
 
     private LocationService locationService;
 
     private UserService userService;
 
     @Autowired
-    public LocationController(LocationService locationService, UserService userService) {
+    public LocationRestController(LocationService locationService, UserService userService) {
         this.locationService = locationService;
         this.userService = userService;
     }
