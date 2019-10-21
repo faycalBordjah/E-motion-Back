@@ -32,7 +32,26 @@ public class Location {
     @OneToOne(targetEntity = User.class)
     private User user;
 
+    @OneToOne(targetEntity = Vehicle.class)
+    private Vehicle vehicle;
+
     public Location() {
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public Vehicle getVehicle() {
+        return vehicle;
+    }
+
+    public void setVehicle(Vehicle vehicle) {
+        this.vehicle = vehicle;
     }
 
     public LocalDate getStarDate() {
