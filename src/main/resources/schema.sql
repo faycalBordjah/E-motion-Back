@@ -1,3 +1,4 @@
+------- CREATE ROLES
 DROP TABLE IF EXISTS roles;
 CREATE TABLE roles
 (
@@ -8,6 +9,20 @@ CREATE TABLE roles
     UNIQUE KEY uk_roles_name (role_name)
 );
 
+DROP TABLE IF EXISTS address;
+create table address
+(
+    id      bigint auto_increment
+        primary key,
+    city    varchar(255) not null,
+    country varchar(255) not null,
+    number  int          not null,
+    state   varchar(255) not null,
+    street  varchar(255) not null,
+    zip     varchar(255) not null
+);
+
+------ CREATE USERS
 DROP TABLE IF EXISTS users;
 CREATE TABLE users
 (
@@ -28,8 +43,13 @@ CREATE TABLE users
     password          varchar(255) not null,
     permit_num        int          not null,
     phone             varchar(255) not null,
+    address_id        bigint not null,
     UNIQUE key uk_mail (mail),
+    CONSTRAINT fk_address_id FOREIGN KEY (address_id) REFERENCES address (id)
 );
+
+
+------ CREATE JOINT TABLE ROLES AND USERS
 
 DROP TABLE IF EXISTS user_roles;
 create table user_roles
@@ -39,6 +59,7 @@ create table user_roles
     CONSTRAINT fk_user_roles_role_id    foreign key (role_id) references roles (id),
     CONSTRAINT fk_user_roles_user_id   foreign key (user_id) references users (id)
 );
+---- CREATE TABLE vehicles
 
 DROP TABLE IF EXISTS vehicles;
 create table vehicles
@@ -59,3 +80,21 @@ create table vehicles
     state          varchar(255) not null,
     type           varchar(255) not null
 );
+
+--- CREATE TABLE Location
+
+DROP TABLE IF EXISTS location;
+CREATE TABLE location
+  (  id         bigint auto_increment
+        primary key,
+    end_date   date   not null,
+    end_time   time   not null,
+    star_date  date   not null,
+    start_time time   not null,
+    user_id    bigint not null,
+    vehicle_id bigint not null,
+    CONSTRAINT fk_user_id foreign key (user_id) references users (id),
+    CONSTRAINT fk_vehicle_id foreign key (vehicle_id) references vehicles (id)
+);
+
+
