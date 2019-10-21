@@ -1,6 +1,8 @@
 language: java
 jdk:
   - openjdk11
+env:
+  - MODE=prod
 services:
   - mysql
 before_script:
