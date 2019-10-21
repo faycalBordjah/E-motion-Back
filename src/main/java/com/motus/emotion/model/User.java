@@ -1,7 +1,6 @@
 package com.motus.emotion.model;
 
 import com.motus.emotion.dto.UserDto;
-import com.motus.emotion.model.custom.Address;
 
 import javax.persistence.*;
 import java.util.Date;
@@ -38,8 +37,9 @@ public class User {
     @Column(nullable = false)
     private int permitNum;
 
-    @Column(nullable = false)
-    @Embedded
+
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "address_id", referencedColumnName = "id")
     private Address address;
 
     @Column(updatable = false)

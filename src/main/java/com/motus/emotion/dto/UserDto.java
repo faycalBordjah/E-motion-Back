@@ -1,6 +1,6 @@
 package com.motus.emotion.dto;
 
-import com.motus.emotion.model.custom.Address;
+import com.motus.emotion.model.Address;
 
 import javax.validation.constraints.*;
 import java.util.Date;

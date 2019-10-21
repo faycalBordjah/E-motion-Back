@@ -1,29 +1,38 @@
-package com.motus.emotion.model.custom;
+package com.motus.emotion.model;
 
 
-import javax.persistence.Column;
+import javax.persistence.*;
 
+@Entity
+@Table
 public class Address {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
 
-    @Column
+    @Column(nullable = false)
     private int number;
 
-    @Column
+    @Column(nullable = false)
     private String street;
 
-    @Column
+    @Column(nullable = false)
     private String city;
 
-    @Column
+    @Column(nullable = false)
     private String state;
 
-    @Column
+    @Column(nullable = false)
     private String zip;
 
-    @Column
+    @Column(nullable = false)
     private String country;
 
-    public Address() { }
+    @OneToOne(mappedBy = "address")
+    private User user;
+
+    public Address() {
+    }
 
     public Address(int number, String street, String city, String state, String zip, String country) {
         this.number = number;
@@ -32,6 +41,14 @@ public class Address {
         this.state = state;
         this.zip = zip;
         this.country = country;
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
     }
 
     public int getNumber() {
@@ -80,6 +97,14 @@ public class Address {
 
     public void setCountry(String country) {
         this.country = country;
+    }
+
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
     }
 
     @Override
