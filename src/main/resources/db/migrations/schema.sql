@@ -1,34 +1,27 @@
 
 DROP TABLE IF EXISTS `roles`;
-CREATE TABLE `roles`
+CREATE TABLE roles
 (
-    `id`   int(20)  NOT NULL AUTO_INCREMENT,
-    `name` varchar(60) NOT NULL,
-    PRIMARY KEY (`id`),
-    UNIQUE KEY `uk_roles_name` (`name`)
-) ENGINE = InnoDB
-  AUTO_INCREMENT = 4
-  DEFAULT CHARSET = utf8;
+    id   int(20)  NOT NULL AUTO_INCREMENT,
+    name varchar(60) NOT NULL,
+    PRIMARY KEY (id),
+    UNIQUE KEY uk_roles_name (name)
+)
 -- ----------------------------------------------------------------------------
 -- ----------------------------------------------------------------------------
 -- ----------------------------------------------------------------------------
 DROP TABLE IF EXISTS `location`;
 CREATE TABLE IF NOT EXISTS `location`
 (
-    `id`         int(11)                               NOT NULL AUTO_INCREMENT,
-    `start_date`  date                                  NOT NULL,
-    `end_date`    date                                  NOT NULL,
-    `start_hour`  time                                  NOT NULL,
-    `end_hour`    time                                  NOT NULL,
-    `user_id`    int(11)                               NOT NULL,
-    `vehicle_id` int(11)                               NOT NULL,
-    `state`      varchar(10) COLLATE latin1_general_ci NOT NULL,
+    id                                        NOT NULL AUTO_INCREMENT,
+    start_date  date                                  NOT NULL,
+    end_date    date                                  NOT NULL,
+    start_time  time                                  NOT NULL,
+    end_time    time                                  NOT NULL,
+    user_id    bigint                                 NOT NULL,
     PRIMARY KEY (`id`),
-    KEY `user` (`user_id`),
-    KEY `id_vehicle` (`vehicle_id`)
-) ENGINE = InnoDB
-  DEFAULT CHARSET = latin1
-  COLLATE = latin1_general_ci;
+    FOREIGN KEY (user_id) REFERENCES users (id)
+)
 
 -- --------------------------------------------------------
 
@@ -117,3 +110,73 @@ CREATE TABLE `user_roles`
 /*!40101 SET CHARACTER_SET_CLIENT = @OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS = @OLD_CHARACTER_SET_RESULTS */;
 /*!40101 SET COLLATION_CONNECTION = @OLD_COLLATION_CONNECTION */;
+
+
+---
+--
+--
+--
+-- create table roles
+(
+    id          bigint auto_increment
+        primary key,
+    description varchar(255) not null,
+    role_name   varchar(255) not null,
+    constraint UK_nb4h0p6txrmfc0xbrd1kglp9t
+        unique (role_name)
+);
+
+create table users
+(
+    id                bigint auto_increment
+        primary key,
+    city              varchar(255) null,
+    country           varchar(255) null,
+    number            int          null,
+    state             varchar(255) null,
+    street            varchar(255) null,
+    zip               varchar(255) null,
+    birth_day         datetime(6)  not null,
+    creation_date     datetime(6)  null,
+    first_name        varchar(255) not null,
+    last_name         varchar(255) not null,
+    mail              varchar(255) not null,
+    modification_date datetime(6)  null,
+    password          varchar(255) not null,
+    permit_num        int          not null,
+    phone             varchar(255) not null,
+    constraint UKjhck7kjdogc7yia7qamc89ypv
+        unique (mail)
+);
+
+
+
+create table user_roles
+(
+    user_id bigint not null,
+    role_id bigint not null,
+    constraint FKh8ciramu9cc9q3qcqiv4ue8a6
+        foreign key (role_id) references roles (id),
+    constraint FKhfh9dx7w3ubf1co1vdev94g3f
+        foreign key (user_id) references users (id)
+);
+
+create table vehicles
+(
+    id             bigint auto_increment
+        primary key,
+    available      bit          not null,
+    brand          varchar(255) not null,
+    category       varchar(255) not null,
+    color          varchar(255) not null,
+    kilometers     int          not null,
+    model          varchar(255) not null,
+    place_number   int          not null,
+    purchase_date  datetime(6)  not null,
+    purchase_price double       not null,
+    registering    varchar(255) not null,
+    serial_number  int          not null,
+    state          varchar(255) not null,
+    type           varchar(255) not null
+);
+
