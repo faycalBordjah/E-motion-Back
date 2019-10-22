@@ -24,7 +24,7 @@ VALUES ('paris', 'france', 5, 'ile de france', ' Marel Dupont', 75012);
 
 -- Initialize the user
 
-INSERT INTO users (id,
+INSERT INTO users (
                    first_name,
                    last_name,
                    mail,
@@ -35,12 +35,12 @@ INSERT INTO users (id,
                    phone,
                    birth_day,
                    address_id)
-VALUES (1, 'emotion_admin', 'local', 'admin@local.com', '2019-10-08 21:37:00.996000000',
+VALUES ( 'emotion_admin', 'local', 'admin@local.com', '2019-10-08',
         '2019-10-08 21:37:00.996000000',
         '$2a$10$98wmQ9r7xEMl2y.fiDKleeQmMA3xThH1q64GTytcH14xDf.gO4VsW', 309090909, 0768686868,
         '2019-10-08 21:37:00.996000000', 1);
 
-INSERT INTO users (id,
+INSERT INTO users (
                    first_name,
                    last_name,
                    mail,
@@ -51,7 +51,7 @@ INSERT INTO users (id,
                    phone,
                    birth_day,
                    address_id)
-VALUES (1, 'User', 'User', 'user@local.com', '2019-10-21 21:37:00.996000000',
+VALUES ( 'User', 'User', 'user@local.com', '2019-10-21',
         '2019-10-21 21:37:00.996000000',
         '$2a$10$98wmQ9r7xEMl2y.fiDKleeQmMA3xThH1q64GTytcH14xDf.gO4VsW', 309090909, 0668686869,
         '2019-10-08 21:37:00.996000000', 2);
@@ -127,47 +127,39 @@ VALUES (4, true, 'Lexus', 'SUV', 'beige', 7575, 'UX300', 5, '2019-10-20 21:37:00
 
 -- Initialize locations
 
-INSERT INTO Location(id,
-                     starDate,
-                     endDate,
-                     startTime,
-                     endTime,
-                     user,
-                     vehicle)
-VALUES (1,'2019-10-20','2019-10-20','21:37:00.996000000','21:37:00.996000000',2,3);
+INSERT INTO location(
+                     star_date,
+                     end_date,
+                     start_time,
+                     end_time,
+                     user_id,
+                     vehicle_id)
+VALUES ('2019-10-20','2019-10-20','21:37:00.996000000','21:37:00.996000000',2,1);
 
-INSERT INTO Location(id,
-                     starDate,
-                     endDate,
-                     startTime,
-                     endTime,
-                     user,
-                     vehicle)
-VALUES (1,'2019-10-20','2019-10-20','21:37:00.996000000','21:37:00.996000000',2,3);
+INSERT INTO location(
+                     star_date,
+                     end_date,
+                     start_time,
+                     end_time,
+                     user_id,
+                     vehicle_id)
+VALUES ('2019-10-20','2019-10-20','21:37:00.996000000','21:37:00.996000000',2,2);
 
-INSERT INTO Location(id,
-                     starDate,
-                     endDate,
-                     startTime,
-                     endTime,
-                     user,
-                     vehicle)
-VALUES (2,'2019-10-20','2019-10-30','21:37:00.996000000','21:37:00.996000000',3,4);
+INSERT INTO location(
+                     star_date,
+                     end_date,
+                     start_time,
+                     end_time,
+                     user_id,
+                     vehicle_id)
+VALUES ('2019-10-20','2019-10-30','21:37:00.996000000','21:37:00.996000000',2,3);
 
-INSERT INTO Location(id,
-                     starDate,
-                     endDate,
-                     startTime,
-                     endTime,
-                     user,
-                     vehicle)
-VALUES (3,'2019-11-05','2019-11-20','21:37:00.996000000','21:37:00.996000000',3,1);
+INSERT INTO location(
+                     star_date,
+                     end_date,
+                     start_time,
+                     end_time,
+                     user_id,
+                     vehicle_id)
+VALUES ('2019-11-05','2019-11-20','21:37:00.996000000','21:37:00.996000000',2,4);
 
-INSERT INTO Location(id,
-                     starDate,
-                     endDate,
-                     startTime,
-                     endTime,
-                     user,
-                     vehicle)
-VALUES (1,'2019-11-25','2019-11-30','21:37:00.996000000','21:37:00.996000000',2,3);
