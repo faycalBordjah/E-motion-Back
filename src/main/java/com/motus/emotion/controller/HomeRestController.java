@@ -11,6 +11,7 @@ import com.motus.emotion.service.AuthenticationService;
 import com.motus.emotion.service.UserService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
+import io.swagger.annotations.ApiParam;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -30,22 +31,28 @@ public class HomeRestController {
 
     private final Logger LOGGER = LoggerFactory.getLogger(HomeRestController.class);
 
-    @Autowired
     private AuthenticationService authenticationService;
+
+    @Autowired
+    public HomeRestController(AuthenticationService authenticationService) {
+        this.authenticationService = authenticationService;
+    }
 
     @PostMapping(value = "/signin", consumes = {MediaType.APPLICATION_JSON_VALUE},
             produces = {MediaType.APPLICATION_JSON_VALUE
             })
     @ResponseBody
     @ApiOperation(value = "generate a token")
-    public ApiResponse<JwtResponse> createJwtAuth(@RequestBody @Valid AuthDto authDto) throws NotFoundException, AlreadyExistException {
+    public ApiResponse<JwtResponse> createJwtAuth(@RequestBody @Valid @ApiParam("payload authentication") AuthDto authDto) throws NotFoundException, AlreadyExistException {
         JwtResponse token = new JwtResponse(authenticationService.authenticateJwt(authDto));
+        LOGGER.info("Generate token to authenticate");
         return new ApiResponse<>(HttpStatus.OK.value(), "Token generated with success", token);
     }
 
     @PostMapping("/signup")
     @ApiOperation(value = "register a user")
-    public ApiResponse<User> signup(@RequestBody @Valid UserDto userDto) throws AlreadyExistException, NotFoundException {
+    public ApiResponse<User> signup(@RequestBody @Valid @ApiParam("full user payload") UserDto userDto) throws AlreadyExistException, NotFoundException {
+        LOGGER.info("user registration");
         return new ApiResponse<>(HttpStatus.OK.value(), "User created with success", authenticationService.signUp(userDto));
     }
 }

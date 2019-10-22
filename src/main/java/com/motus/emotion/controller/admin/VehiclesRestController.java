@@ -21,9 +21,12 @@ public class VehiclesRestController {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(VehiclesRestController.class);
 
-    @Autowired
     private VehicleService vehicleService;
 
+    @Autowired
+    public VehiclesRestController(VehicleService vehicleService) {
+        this.vehicleService = vehicleService;
+    }
 
     @GetMapping(value = "/{id}", produces = {MediaType.APPLICATION_JSON_VALUE})
     @ResponseBody

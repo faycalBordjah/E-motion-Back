@@ -25,7 +25,7 @@ public class VehicleController {
 
     private VehicleService vehicleService;
 
-    Logger logger = LoggerFactory.getLogger(VehicleController.class);
+    private final static Logger logger = LoggerFactory.getLogger(VehicleController.class);
 
     @Autowired
     public VehicleController(VehicleService vehicleService) {

@@ -26,7 +26,7 @@ import java.util.List;
 @Api("Api for simple user locations")
 public class LocationRestController {
 
-    Logger logger = LoggerFactory.getLogger(LocationRestController.class);
+    private final static Logger logger = LoggerFactory.getLogger(LocationRestController.class);
 
     private LocationService locationService;
 
@@ -60,6 +60,7 @@ public class LocationRestController {
     @ResponseBody
     public ApiResponse<List<Location>> getLocationByUser(@PathVariable @NotNull @ApiParam Long userId
     ) {
+        logger.info("fetch a location by his user actor");
         return new ApiResponse<>(HttpStatus.OK.value(),
                 "Locations fetched successfully",
                 locationService.findByUser(userId));
