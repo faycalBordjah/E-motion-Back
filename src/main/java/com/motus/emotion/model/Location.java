@@ -35,6 +35,11 @@ public class Location {
     @OneToOne(targetEntity = Vehicle.class)
     private Vehicle vehicle;
 
+    @Enumerated(value = EnumType.STRING)
+    @NotNull(message = "status of location must be set")
+    @Column(nullable = false)
+    private LocationStatus status;
+
     public Location() {
     }
 
@@ -92,5 +97,13 @@ public class Location {
 
     public void setUser(User user) {
         this.user = user;
+    }
+
+    public LocationStatus getStatus() {
+        return status;
+    }
+
+    public void setStatus(LocationStatus status) {
+        this.status = status;
     }
 }

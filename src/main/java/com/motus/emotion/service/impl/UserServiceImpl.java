@@ -1,6 +1,7 @@
 package com.motus.emotion.service.impl;
 
 import com.motus.emotion.exception.NotFoundException;
+import com.motus.emotion.model.RoleName;
 import com.motus.emotion.model.User;
 import com.motus.emotion.repository.UserRepository;
 import com.motus.emotion.service.UserService;
@@ -39,7 +40,7 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public User getById(Long id) {
-        return userRepository.findById(id).orElse(null);
+        return userRepository.findById(id).orElseThrow(() -> new NotFoundException("User with id " + id));
     }
 
     @Override
@@ -75,6 +76,11 @@ public class UserServiceImpl implements UserService {
     @Override
     public boolean isUserExist(String mail) throws NotFoundException {
         return getByMail(mail) != null;
+    }
+
+    @Override
+    public boolean isAdmin(Long id, String mail) throws NotFoundException {
+        return userRepository.findByIdAndMail(id,mail) != null;
     }
 }
 

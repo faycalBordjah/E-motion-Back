@@ -132,34 +132,38 @@ INSERT INTO location(
                      end_date,
                      start_time,
                      end_time,
+                     status,
                      user_id,
                      vehicle_id)
-VALUES ('2019-10-20','2019-10-20','21:37:00.996000000','21:37:00.996000000',2,1);
+VALUES ('2019-10-20','2019-10-20','21:37:00.996000000','21:37:00.996000000','IN_PROGRESS',2,1);
 
 INSERT INTO location(
                      star_date,
                      end_date,
                      start_time,
                      end_time,
+                     status,
                      user_id,
                      vehicle_id)
-VALUES ('2019-10-20','2019-10-20','21:37:00.996000000','21:37:00.996000000',2,2);
+VALUES ('2019-10-20','2019-10-20','21:37:00.996000000','21:37:00.996000000','CANCELED',2,2);
 
 INSERT INTO location(
                      star_date,
                      end_date,
                      start_time,
                      end_time,
+                     status,
                      user_id,
                      vehicle_id)
-VALUES ('2019-10-20','2019-10-30','21:37:00.996000000','21:37:00.996000000',2,3);
+VALUES ('2019-10-20','2019-10-30','21:37:00.996000000','21:37:00.996000000','DONE',2,3);
 
 INSERT INTO location(
                      star_date,
                      end_date,
                      start_time,
                      end_time,
+                     status,
                      user_id,
                      vehicle_id)
-VALUES ('2019-11-05','2019-11-20','21:37:00.996000000','21:37:00.996000000',2,4);
+VALUES ('2019-11-05','2019-11-20','21:37:00.996000000','21:37:00.996000000','IN_PROGRESS',2,4);
 

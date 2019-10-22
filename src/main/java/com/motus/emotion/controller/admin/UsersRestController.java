@@ -16,7 +16,10 @@ import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
+import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping(value = "/emotion/api/admin")
@@ -38,17 +41,19 @@ public class UsersRestController {
     @ResponseBody
     public ApiResponse<List<User>> getAllUsers() {
         logger.info("Fetching all Users");
+        List<User> users;
         if (userService.getAll().isEmpty()) {
             logger.warn("Unable to fetch an empty list");
             return new ApiResponse<>(HttpStatus.NO_CONTENT.value(), "Unable to fetch an empty list.", null);
-        }
-        return new ApiResponse<>(HttpStatus.OK.value(), "User list fetched successfully.", userService.getAll());
+        };
+        users = userService.getAll().stream().filter(user -> !Objects.deepEquals(user,userService.getById(1L))).collect(Collectors.toList());
+        return new ApiResponse<>(HttpStatus.OK.value(), "User list fetched successfully.", users);
     }
 
     @GetMapping(value = "/users/{userId}", produces = {MediaType.APPLICATION_JSON_VALUE})
     @ResponseBody
     @ApiOperation(value = "get a user by his id")
-    public ApiResponse<User> getUserById(@PathVariable @ApiParam final Long userId) {
+    public ApiResponse<User> getUser(@PathVariable @ApiParam final Long userId) {
         logger.info("Fetching User with id {}", userId);
         User user = userService.getById(userId);
         if (user == null) {
@@ -68,10 +73,6 @@ public class UsersRestController {
     public ApiResponse<User> updateUser(@PathVariable @ApiParam final Long userId, @RequestBody @Valid User user) throws NotFoundException {
         logger.info("Updating Client with id {}", userId);
         User currentUser = userService.getById(userId);
-        if (currentUser == null) {
-            logger.error("Unable to update. User with id {}  is not found", userId);
-            return new ApiResponse<>(HttpStatus.NOT_FOUND.value(), "Unable to update. User with id " + userId + " not found.", userService.getById(userId));
-        }
         return new ApiResponse<>(HttpStatus.OK.value(), "User updated successfully.", userService.updateUser(currentUser, user));
     }
 
@@ -86,7 +87,7 @@ public class UsersRestController {
             logger.error("Unable to delete. User with id {} not found.", userId);
             return new ApiResponse<User>(HttpStatus.NOT_FOUND.value(), "Unable to delete. User with id " + userId + " not found.", userService.getById(userId));
         }
-        if (userId == 1) {
+        if (userService.isAdmin(userId,user.getMail())) {
             return new ApiResponse<>(HttpStatus.FORBIDDEN.value(), "You can not delete the admin", userService.getById(userId));
         }
         userService.delete(userId);

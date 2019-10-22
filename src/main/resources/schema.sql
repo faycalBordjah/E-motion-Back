@@ -91,10 +91,21 @@ CREATE TABLE location
     end_time   time   not null,
     star_date  date   not null,
     start_time time   not null,
+    status     varchar(255) not null,
     user_id    bigint not null,
     vehicle_id bigint not null,
     CONSTRAINT fk_user_id foreign key (user_id) references users (id),
     CONSTRAINT fk_vehicle_id foreign key (vehicle_id) references vehicles (id)
 );
 
+DROP TABLE IF EXISTS files;
+CREATE TABLE files
+(
+id varchar(255) not null PRIMARY KEY,
+data      longblob     null,
+file_name varchar(255) not null,
+file_type varchar(255) not null,
+vehicle_id bigint  null,
+CONSTRAINT fk_vehicle_file_id FOREIGN KEY (vehicle_id) REFERENCES vehicles (id)
+);
 
