@@ -89,7 +89,7 @@ CREATE TABLE location
         primary key,
     end_date   date   not null,
     end_time   time   not null,
-    star_date  date   not null,
+    start_date  date   not null,
     start_time time   not null,
     status     varchar(255) not null,
     user_id    bigint not null,

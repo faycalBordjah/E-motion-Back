@@ -15,7 +15,7 @@ public class Location {
 
     @NotNull(message = "Start date must be set ")
     @Column(nullable = false)
-    private LocalDate starDate;
+    private LocalDate startDate;
 
     @Column(nullable = false)
     @NotNull(message = "End date must be set ")
@@ -59,12 +59,12 @@ public class Location {
         this.vehicle = vehicle;
     }
 
-    public LocalDate getStarDate() {
-        return starDate;
+    public LocalDate getStartDate() {
+        return startDate;
     }
 
-    public void setStarDate(LocalDate starDate) {
-        this.starDate = starDate;
+    public void setStartDate(LocalDate startDate) {
+        this.startDate = startDate;
     }
 
     public LocalDate getEndDate() {
