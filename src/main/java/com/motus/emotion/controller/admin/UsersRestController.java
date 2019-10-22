@@ -38,10 +38,9 @@ public class UsersRestController {
     @ResponseBody
     public ApiResponse<List<User>> getAllUsers() {
         logger.info("Fetching all Users");
-        List<User> userList = userService.getAll();
-        if (userList.isEmpty()) {
+        if (userService.getAll().isEmpty()) {
             logger.warn("Unable to fetch an empty list");
-            return new ApiResponse<>(HttpStatus.NO_CONTENT.value(), "Unable to fetch an empty list.", userService.getAll());
+            return new ApiResponse<>(HttpStatus.NO_CONTENT.value(), "Unable to fetch an empty list.", null);
         }
         return new ApiResponse<>(HttpStatus.OK.value(), "User list fetched successfully.", userService.getAll());
     }
