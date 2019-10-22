@@ -91,6 +91,7 @@ CREATE TABLE location
     end_time   time   not null,
     star_date  date   not null,
     start_time time   not null,
+    status     varchar(255) not null,
     user_id    bigint not null,
     vehicle_id bigint not null,
     CONSTRAINT fk_user_id foreign key (user_id) references users (id),

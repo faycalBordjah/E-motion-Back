@@ -21,4 +21,6 @@ public interface UserService {
     User updateUser(User user, User current) throws NotFoundException;
 
     boolean isUserExist(String mail) throws NotFoundException;
+
+    boolean isAdmin(Long id,String mail) throws NotFoundException;
 }
