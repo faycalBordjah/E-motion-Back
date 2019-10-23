@@ -1,5 +1,6 @@
 package com.motus.emotion.service.impl;
 
+import com.motus.emotion.dto.UserDto;
 import com.motus.emotion.exception.NotFoundException;
 import com.motus.emotion.model.RoleName;
 import com.motus.emotion.model.User;
@@ -56,6 +57,13 @@ public class UserServiceImpl implements UserService {
         return userRepository.save(user);
     }
 
+    /**
+     * Update user information by admin
+     * @param user
+     * @param current
+     * @return
+     * @throws NotFoundException
+     */
     @Override
     public User updateUser(User user, User current) throws NotFoundException {
         /**
@@ -71,6 +79,25 @@ public class UserServiceImpl implements UserService {
         user.setModificationDate(new Date());
         user.setPermitNum(current.getPermitNum());
         return userRepository.save(user);
+    }
+
+    /**
+     * Update the user profile
+     * @param id
+     * @param current
+     * @return
+     * @throws NotFoundException
+     */
+    @Override
+    public User updateProfile(Long id, UserDto current) throws NotFoundException {
+        User existingUser = userRepository.findById(id).orElseThrow(() -> new NotFoundException("User with id " + id));
+        existingUser.setAddress(current.getAddress());
+        existingUser.setFirstName(current.getFirstName());
+        existingUser.setLastName(current.getLastName());
+        existingUser.setBirthDay(current.getBirthDay());
+        existingUser.setModificationDate(new Date());
+        existingUser.setPermitNum(current.getPermitNum());
+        return userRepository.save(existingUser);
     }
 
     @Override

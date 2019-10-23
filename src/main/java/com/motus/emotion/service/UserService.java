@@ -1,5 +1,6 @@
 package com.motus.emotion.service;
 
+import com.motus.emotion.dto.UserDto;
 import com.motus.emotion.exception.AlreadyExistException;
 import com.motus.emotion.exception.NotFoundException;
 import com.motus.emotion.model.User;
@@ -19,6 +20,8 @@ public interface UserService {
     void delete(Long id);
 
     User updateUser(User user, User current) throws NotFoundException;
+
+    User updateProfile(Long id, UserDto current) throws NotFoundException;
 
     boolean isUserExist(String mail) throws NotFoundException;
 

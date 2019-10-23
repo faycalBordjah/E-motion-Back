@@ -4,6 +4,7 @@ import com.motus.emotion.dto.LocationDto;
 import com.motus.emotion.exception.NotFoundException;
 import com.motus.emotion.model.Location;
 import com.motus.emotion.repository.LocationRepository;
+import com.motus.emotion.repository.UserRepository;
 import com.motus.emotion.service.LocationService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -13,8 +14,14 @@ import java.util.List;
 @Service(value = "LocationService")
 public class LocationServiceImpl implements LocationService {
 
-    @Autowired
     private LocationRepository locationRepository;
+    private UserRepository userRepository;
+
+    @Autowired
+    public LocationServiceImpl(LocationRepository locationRepository, UserRepository userRepository) {
+        this.locationRepository = locationRepository;
+        this.userRepository = userRepository;
+    }
 
     @Override
     public Location create(Location location) {
@@ -23,6 +30,7 @@ public class LocationServiceImpl implements LocationService {
 
     @Override
     public List<Location> findByUser(Long userId) {
+        userRepository.findById(userId).orElseThrow(() -> new NotFoundException("the user with " + userId +" you can not find his locations"));
         return locationRepository.findByUser(userId);
     }
 

@@ -44,7 +44,7 @@ public class LocationRestController {
             })
     @ResponseBody
     @ApiOperation(value = "register a user")
-    public ApiResponse<Location> create(@PathVariable @NotNull @ApiParam Long userId,
+    public ApiResponse<Location> reserve(@PathVariable @NotNull @ApiParam Long userId,
                                         @RequestBody @Valid Location location) {
         logger.info("fetching the actor of location");
         User user = userService.getById(userId);
@@ -54,11 +54,12 @@ public class LocationRestController {
                 locationService.create(location));
     }
 
-    @GetMapping(value = "/{userId}", consumes = {MediaType.APPLICATION_JSON_VALUE},
+    @GetMapping(value = "/{userId}",
             produces = {MediaType.APPLICATION_JSON_VALUE
             })
     @ResponseBody
-    public ApiResponse<List<Location>> getLocationByUser(@PathVariable @NotNull @ApiParam Long userId
+    @ApiOperation(value = "Get the history of all user locations")
+    public ApiResponse<List<Location>> findUserLocations(@PathVariable @NotNull @ApiParam Long userId
     ) {
         logger.info("fetch a location by his user actor");
         return new ApiResponse<>(HttpStatus.OK.value(),
