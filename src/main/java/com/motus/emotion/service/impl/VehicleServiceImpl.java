@@ -1,6 +1,7 @@
 package com.motus.emotion.service.impl;
 
 import com.motus.emotion.model.Vehicle;
+import com.motus.emotion.model.VehicleType;
 import com.motus.emotion.repository.VehicleRepository;
 import com.motus.emotion.service.VehicleService;
 import org.springframework.beans.BeanUtils;
@@ -32,8 +33,14 @@ public class VehicleServiceImpl implements VehicleService {
     }
 
     @Override
-    public Vehicle getByType(String type) {
-        return vehicleRepository.findByType(type);
+    public List<Vehicle> getAvailable(boolean available) {
+        return vehicleRepository.findVehicleByAvailable(available);
+    }
+
+    @Override
+    public List<Vehicle> getByType(String type) {
+
+        return vehicleRepository.findByType(VehicleType.getType(type));
     }
 
     @Override
