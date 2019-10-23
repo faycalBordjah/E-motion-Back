@@ -16,7 +16,6 @@ import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 import java.util.stream.Collectors;
@@ -29,7 +28,7 @@ public class UsersRestController {
 
     private UserService userService;
 
-    Logger logger = LoggerFactory.getLogger(UsersRestController.class);
+    private static final Logger logger = LoggerFactory.getLogger(UsersRestController.class);
 
     @Autowired
     public UsersRestController(UserService userService) {
@@ -82,10 +81,9 @@ public class UsersRestController {
     public ApiResponse<User> delete(@PathVariable @ApiParam final Long userId) {
         logger.info("Fetching & Deleting User with id {}", userId);
         User user = userService.getById(userId);
-
         if (user == null) {
             logger.error("Unable to delete. User with id {} not found.", userId);
-            return new ApiResponse<User>(HttpStatus.NOT_FOUND.value(), "Unable to delete. User with id " + userId + " not found.", userService.getById(userId));
+            return new ApiResponse<>(HttpStatus.NOT_FOUND.value(), "Unable to delete. User with id " + userId + " not found.", userService.getById(userId));
         }
         if (userService.isAdmin(userId,user.getMail())) {
             return new ApiResponse<>(HttpStatus.FORBIDDEN.value(), "You can not delete the admin", userService.getById(userId));

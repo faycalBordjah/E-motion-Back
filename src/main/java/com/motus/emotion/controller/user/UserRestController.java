@@ -18,10 +18,14 @@ import org.springframework.web.bind.annotation.*;
 @Api("Api responsible of users")
 public class UserRestController {
 
-    Logger LOGGER = LoggerFactory.getLogger(UserRestController.class);
+    private final static Logger LOGGER = LoggerFactory.getLogger(UserRestController.class);
+
+    private UserService userService;
 
     @Autowired
-    private UserService userService;
+    public UserRestController(UserService userService) {
+        this.userService = userService;
+    }
 
     @GetMapping(value = "/{userId}", produces = {MediaType.APPLICATION_JSON_VALUE})
     @ResponseBody
