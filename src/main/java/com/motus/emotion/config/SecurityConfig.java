@@ -54,7 +54,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
             @Override
             public void addCorsMappings(CorsRegistry registry) {
                 registry.addMapping("/emotion/api/**")
-                        .allowedOrigins("http://localhost:4200");
+                        .allowedOrigins("http://localhost:4200").allowedMethods("GET","POST","DELETE","PUT","OPTIONS");
             }
         };
     }

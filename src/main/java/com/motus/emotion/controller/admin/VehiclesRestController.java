@@ -44,14 +44,14 @@ public class VehiclesRestController {
 
     }
 
-    @PostMapping(value = "", produces = {MediaType.APPLICATION_JSON_VALUE})
+    @PostMapping(value = "", consumes = {MediaType.APPLICATION_JSON_VALUE},produces = {MediaType.APPLICATION_JSON_VALUE})
     @ApiOperation(value = "add a vehicle")
     @ResponseBody
     public ApiResponse<Vehicle> create(@RequestBody Vehicle vehicle) {
         LOGGER.info("Creating Vehicle : {}", vehicle);
         if (vehicleService.isVehicleExist(vehicle)) {
             LOGGER.error("Unable to create. A Vehicle with serialNumber {} already exist", vehicle.getSerialNumber());
-            return new ApiResponse<Vehicle>(HttpStatus.CONFLICT.value(), "Unable to create. A Vehicle with serialNumber " +
+            return new ApiResponse<>(HttpStatus.CONFLICT.value(), "Unable to create. A Vehicle with serialNumber " +
                     vehicle.getSerialNumber() + " already exist.", vehicleService.save(vehicle));
 
         } else if (vehicle == null) {

@@ -7,35 +7,19 @@ import java.util.Date;
 
 public class UserDto {
 
-    @Size(min = 4,max = 100)
-    @NotBlank(message = "first name should be set")
     private String firstName;
 
-    @Size(min = 4,max = 100)
-    @NotBlank(message = "last name should be set")
     private String lastName;
 
-    @NotNull(message = "birth day should be set")
-    @Past
     private Date birthDay;
 
-    @Size(min = 4,max = 100)
-    @NotBlank(message = "mail should be set")
-    @Email
     private String mail;
-    @Size(min = 6, max = 200)
-    @NotBlank(message = "password must be set")
     private String password;
 
-    @Size(min = 6, max = 200)
-    @NotBlank(message = "phone number must be set")
     private String phone;
 
-    @Min(value = 9)
-    @NotNull(message = "permitNum must be set  must be set")
     private int permitNum;
 
-    @NotNull(message = "Address  must be set")
     private Address address;
 
 

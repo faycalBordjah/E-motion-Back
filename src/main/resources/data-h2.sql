@@ -78,7 +78,7 @@ INSERT INTO vehicles(id, available,
                      serial_number,
                      state,
                      type)
-VALUES (1, false, 'tesla', 'moto', 'bleu', 3434, 'teslaX1', 5, '2019-10-08 21:37:00.996000000', 345, '', 2323, '', '');
+VALUES (1, false, 'tesla', 'moto', 'bleu', 3434, 'teslaX1', 5, '2019-10-08 21:37:00.996000000', 345, '', 2323, 'raillure et accident en avant ', 'SCOOTER');
 
 INSERT INTO vehicles(id, available,
                      brand,
@@ -93,7 +93,7 @@ INSERT INTO vehicles(id, available,
                      serial_number,
                      state,
                      type)
-VALUES (2, true, 'renault', 'citadine', 'bleu', 3434, 'Zoe', 5, '2019-10-20 21:37:00.996000000', 400, '', 4242, 'Paris', '');
+VALUES (2, true, 'renault', 'citadine', 'bleu', 3434, 'Zoe', 5, '2019-10-20 21:37:00.996000000', 400, '', 4242, 'tout neuf', 'CAR');
 
 INSERT INTO vehicles(id, available,
                      brand,
@@ -108,7 +108,7 @@ INSERT INTO vehicles(id, available,
                      serial_number,
                      state,
                      type)
-VALUES (3, true, 'mercedes', 'berline', 'gris', 5252, 'EQ', 5, '2019-10-20 21:37:00.996000000', 450, '', 6666, 'Lyon', '');
+VALUES (3, true, 'mercedes', 'berline', 'gris', 5252, 'EQ', 5, '2019-10-20 21:37:00.996000000', 450, 'CQ12390', 6666, 'tout neuf', 'SCOOTER');
 
 INSERT INTO vehicles(id, available,
                      brand,
@@ -123,7 +123,7 @@ INSERT INTO vehicles(id, available,
                      serial_number,
                      state,
                      type)
-VALUES (4, true, 'Lexus', 'SUV', 'beige', 7575, 'UX300', 5, '2019-10-20 21:37:00.996000000', 700, '', 7575, 'Paris', '');
+VALUES (4, true, 'Lexus', 'SUV', 'beige', 7575, 'UX300', 5, '2019-10-20 21:37:00.996000000', 700, 'WQ12390', 7575, 'ancien avec petites taches', 'CAR');
 
 -- Initialize locations
 
