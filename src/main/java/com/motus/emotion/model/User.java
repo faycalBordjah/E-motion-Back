@@ -1,5 +1,6 @@
 package com.motus.emotion.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.motus.emotion.dto.UserDto;
 
 import javax.persistence.*;
@@ -29,6 +30,7 @@ public class User {
     private String mail;
 
     @Column(nullable = false)
+    @JsonIgnore
     private String password;
 
     @Column(nullable = false)
@@ -38,8 +40,7 @@ public class User {
     private int permitNum;
 
 
-    @OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "address_id", referencedColumnName = "id")
+    @OneToOne(targetEntity = Address.class)
     private Address address;
 
     @Column(updatable = false)

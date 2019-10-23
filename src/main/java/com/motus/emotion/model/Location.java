@@ -15,7 +15,7 @@ public class Location {
 
     @NotNull(message = "Start date must be set ")
     @Column(nullable = false)
-    private LocalDate starDate;
+    private LocalDate startDate;
 
     @Column(nullable = false)
     @NotNull(message = "End date must be set ")
@@ -34,6 +34,11 @@ public class Location {
 
     @OneToOne(targetEntity = Vehicle.class)
     private Vehicle vehicle;
+
+    @Enumerated(value = EnumType.STRING)
+    @NotNull(message = "status of location must be set")
+    @Column(nullable = false)
+    private LocationStatus status;
 
     public Location() {
     }
@@ -54,12 +59,12 @@ public class Location {
         this.vehicle = vehicle;
     }
 
-    public LocalDate getStarDate() {
-        return starDate;
+    public LocalDate getStartDate() {
+        return startDate;
     }
 
-    public void setStarDate(LocalDate starDate) {
-        this.starDate = starDate;
+    public void setStartDate(LocalDate startDate) {
+        this.startDate = startDate;
     }
 
     public LocalDate getEndDate() {
@@ -92,5 +97,13 @@ public class Location {
 
     public void setUser(User user) {
         this.user = user;
+    }
+
+    public LocationStatus getStatus() {
+        return status;
+    }
+
+    public void setStatus(LocationStatus status) {
+        this.status = status;
     }
 }

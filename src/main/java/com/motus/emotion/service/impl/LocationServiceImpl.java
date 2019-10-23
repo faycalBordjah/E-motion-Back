@@ -1,5 +1,7 @@
 package com.motus.emotion.service.impl;
 
+import com.motus.emotion.dto.LocationDto;
+import com.motus.emotion.exception.NotFoundException;
 import com.motus.emotion.model.Location;
 import com.motus.emotion.repository.LocationRepository;
 import com.motus.emotion.service.LocationService;
@@ -27,5 +29,12 @@ public class LocationServiceImpl implements LocationService {
     @Override
     public List<Location> findAll() {
         return locationRepository.findAll();
+    }
+
+    @Override
+    public Location update(Long id, LocationDto locationInput) {
+        Location locationInData = locationRepository.findById(id).orElseThrow(() -> new NotFoundException("Location " + id));
+        locationInData.setStatus(locationInput.getStatus());
+        return locationRepository.save(locationInData);
     }
 }
