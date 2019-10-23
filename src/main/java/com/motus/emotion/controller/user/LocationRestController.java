@@ -23,7 +23,7 @@ import java.util.List;
 @RestController
 @RequestMapping(value = "/emotion/api/user/locations")
 @Validated
-@Api("Api for simple user locations")
+@Api(description = "Api for simple user locations")
 public class LocationRestController {
 
     private final static Logger logger = LoggerFactory.getLogger(LocationRestController.class);

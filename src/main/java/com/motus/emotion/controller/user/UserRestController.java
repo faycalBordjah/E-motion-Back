@@ -19,7 +19,7 @@ import javax.validation.Valid;
 
 @RestController
 @RequestMapping(value = "/emotion/api/user")
-@Api("Api responsible of users")
+@Api(description = "Api responsible of users")
 public class UserRestController {
 
     private final static Logger LOGGER = LoggerFactory.getLogger(UserRestController.class);

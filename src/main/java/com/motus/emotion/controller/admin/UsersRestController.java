@@ -23,7 +23,7 @@ import java.util.stream.Collectors;
 @RestController
 @RequestMapping(value = "/emotion/api/admin")
 @Validated
-@Api("Api for user rest service")
+@Api(description = "Api for user rest service")
 public class UsersRestController {
 
     private UserService userService;

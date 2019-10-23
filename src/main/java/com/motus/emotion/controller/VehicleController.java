@@ -19,7 +19,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping(value = "/emotion/api/vehicles")
-@Api("vehicle api for anonymous")
+@Api(description = "vehicle api for anonymous")
 public class VehicleController {
 
 
