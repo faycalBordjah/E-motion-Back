@@ -16,7 +16,7 @@ import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping(value = "emotion/api/admin/vehicles")
-@Api("Api for admin responsible of vehicles")
+@Api(description = "Api for admin responsible of vehicles")
 public class VehiclesRestController {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(VehiclesRestController.class);

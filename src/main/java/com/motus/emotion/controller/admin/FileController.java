@@ -17,7 +17,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 @RestController
 @RequestMapping(value = "/emotion/api/admin/upload")
-@Api("Api to upload a file, for now only admin can upload when he create a vehicle")
+@Api(description = "Api to upload a file, for now only admin can upload when he create a vehicle")
 public class FileController {
 
     public static final Logger LOGGER = LoggerFactory.getLogger(FileController.class);

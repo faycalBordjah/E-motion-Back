@@ -26,7 +26,7 @@ import javax.validation.Valid;
 @RestController
 @RequestMapping(value = "/emotion/api/authenticate")
 @Validated
-@Api("authentication api")
+@Api(description = "authentication api")
 public class HomeRestController {
 
     private final Logger LOGGER = LoggerFactory.getLogger(HomeRestController.class);

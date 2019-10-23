@@ -20,7 +20,7 @@ import java.util.List;
 @RestController
 @RequestMapping(value = "/emotion/api/admin/locations")
 @Validated
-@Api("Api for locations crud operations")
+@Api(description = "Api for locations crud operations")
 public class RentalRestController {
 
     private final static Logger LOGGER = LoggerFactory.getLogger(RentalRestController.class);
