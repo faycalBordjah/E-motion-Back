@@ -26,7 +26,8 @@ public class Vehicle {
 
     @Column(nullable = false)
     @NotNull(message = "type must be set ")
-    private String type;
+    @Enumerated(EnumType.STRING)
+    private VehicleType type;
 
     @Column(nullable = false)
     @NotNull(message = "category must be set ")
@@ -71,7 +72,7 @@ public class Vehicle {
     public Vehicle() {
     }
 
-    public Vehicle(String model, String brand, String type, String category, String color, int serialNumber, String registering
+    public Vehicle(String model, String brand, VehicleType type, String category, String color, int serialNumber, String registering
             , boolean available, double purchasePrice, int placeNumber, int kilometers, String state) {
         this.model = model;
         this.brand = brand;
@@ -112,11 +113,11 @@ public class Vehicle {
         this.brand = brand;
     }
 
-    public String getType() {
+    public VehicleType getType() {
         return type;
     }
 
-    public void setType(String type) {
+    public void setType(VehicleType type) {
         this.type = type;
     }
 
