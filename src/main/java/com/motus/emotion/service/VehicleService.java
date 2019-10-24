@@ -8,7 +8,9 @@ public interface VehicleService {
 
     Vehicle getById(Long id);
 
-    Vehicle getByType(String type);
+    List<Vehicle> getAvailable(boolean available);
+
+    List<Vehicle> getByType(String type);
 
     Vehicle getBySerialNumber(int serialNumber);
 
