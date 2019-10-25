@@ -65,15 +65,11 @@ public class Vehicle {
     @NotNull(message = "kilometers must be set ")
     private int kilometers;
 
-    @Column(nullable = false)
-    @NotNull(message = "state must be set ")
-    private String state;
-
     public Vehicle() {
     }
 
     public Vehicle(String model, String brand, VehicleType type, String category, String color, int serialNumber, String registering
-            , boolean available, double purchasePrice, int placeNumber, int kilometers, String state) {
+            , boolean available, double purchasePrice, int placeNumber, int kilometers) {
         this.model = model;
         this.brand = brand;
         this.type = type;
@@ -86,7 +82,6 @@ public class Vehicle {
         this.purchasePrice = purchasePrice;
         this.placeNumber = placeNumber;
         this.kilometers = kilometers;
-        this.state = state;
     }
 
     public Long getId() {
@@ -193,14 +188,6 @@ public class Vehicle {
         this.kilometers = kilometers;
     }
 
-    public String[] getState() {
-        String[] stateSplited = state.split(" , ");
-        return stateSplited;
-    }
-
-    public void setState(String[] state) {
-        this.state = String.join(" , ", state);
-    }
 
     @Override
     public String toString() {
@@ -218,7 +205,6 @@ public class Vehicle {
                 ", purchasePrice=" + purchasePrice +
                 ", placeNumber=" + placeNumber +
                 ", kilometers=" + kilometers +
-                ", state=" + state +
                 '}';
     }
 }

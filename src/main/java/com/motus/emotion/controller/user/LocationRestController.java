@@ -1,10 +1,13 @@
 package com.motus.emotion.controller.user;
 
 import com.motus.emotion.model.Location;
+import com.motus.emotion.model.LocationStatus;
 import com.motus.emotion.model.User;
+import com.motus.emotion.model.Vehicle;
 import com.motus.emotion.model.api.ApiResponse;
 import com.motus.emotion.service.LocationService;
 import com.motus.emotion.service.UserService;
+import com.motus.emotion.service.VehicleService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
@@ -30,25 +33,32 @@ public class LocationRestController {
 
     private LocationService locationService;
 
+    private VehicleService vehicleService;
+
     private UserService userService;
 
     @Autowired
-    public LocationRestController(LocationService locationService, UserService userService) {
+    public LocationRestController(LocationService locationService, UserService userService,VehicleService vehicleService) {
         this.locationService = locationService;
         this.userService = userService;
+        this.vehicleService = vehicleService;
     }
 
-    @PostMapping(value = "/{userId}",
+    @PostMapping(value = "/{userId}/{vehicleId}",
             consumes = {MediaType.APPLICATION_JSON_VALUE},
             produces = {MediaType.APPLICATION_JSON_VALUE
             })
     @ResponseBody
-    @ApiOperation(value = "register a user")
+    @ApiOperation(value = "reserve a vehicle")
     public ApiResponse<Location> reserve(@PathVariable @NotNull @ApiParam Long userId,
-                                        @RequestBody @Valid Location location) {
+                                        @PathVariable @ApiParam Long vehicleId,
+                                        @RequestBody Location location) {
         logger.info("fetching the actor of location");
         User user = userService.getById(userId);
+        Vehicle vehicle = vehicleService.getById(vehicleId);
         location.setUser(user);
+        location.setVehicle(vehicle);
+        location.setStatus(LocationStatus.IN_PROGRESS);
         return new ApiResponse<>(HttpStatus.OK.value(),
                 "Location created successfully",
                 locationService.create(location));
