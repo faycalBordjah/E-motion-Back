@@ -7,6 +7,7 @@ import com.motus.emotion.exception.AlreadyExistException;
 import com.motus.emotion.exception.NotFoundException;
 import com.motus.emotion.model.User;
 import com.motus.emotion.model.api.ApiResponse;
+import com.motus.emotion.repository.AddressRepository;
 import com.motus.emotion.service.AuthenticationService;
 import com.motus.emotion.service.UserService;
 import io.swagger.annotations.Api;
@@ -33,9 +34,12 @@ public class HomeRestController {
 
     private AuthenticationService authenticationService;
 
+    private AddressRepository addressRepository;
+
     @Autowired
-    public HomeRestController(AuthenticationService authenticationService) {
+    public HomeRestController(AuthenticationService authenticationService,AddressRepository addressRepository) {
         this.authenticationService = authenticationService;
+        this.addressRepository = addressRepository;
     }
 
     @PostMapping(value = "/signin", consumes = {MediaType.APPLICATION_JSON_VALUE},
@@ -53,6 +57,7 @@ public class HomeRestController {
     @ApiOperation(value = "register a user")
     public ApiResponse<User> signup(@RequestBody @Valid @ApiParam("full user payload") UserDto userDto) throws AlreadyExistException, NotFoundException {
         LOGGER.info("user registration");
+        addressRepository.save(userDto.getAddress());
         return new ApiResponse<>(HttpStatus.OK.value(), "User created with success", authenticationService.signUp(userDto));
     }
 }

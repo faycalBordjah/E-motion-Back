@@ -11,7 +11,7 @@ public class Address {
     private Long id;
 
     @Column(nullable = false)
-    private int number;
+    private int roadNumber;
 
     @Column(nullable = false)
     private String street;
@@ -31,8 +31,8 @@ public class Address {
     public Address() {
     }
 
-    public Address(int number, String street, String city, String state, String zip, String country) {
-        this.number = number;
+    public Address(int roadNumber, String street, String city, String state, String zip, String country) {
+        this.roadNumber = roadNumber;
         this.street = street;
         this.city = city;
         this.state = state;
@@ -48,12 +48,12 @@ public class Address {
         this.id = id;
     }
 
-    public int getNumber() {
-        return number;
+    public int getRoadNumber() {
+        return roadNumber;
     }
 
-    public void setNumber(int number) {
-        this.number = number;
+    public void setRoadNumber(int roadNumber) {
+        this.roadNumber = roadNumber;
     }
 
     public String getStreet() {
@@ -100,7 +100,7 @@ public class Address {
     @Override
     public String toString() {
         return "Address{" +
-                "number=" + number +
+                "number=" + roadNumber +
                 ", street='" + street + '\'' +
                 ", city='" + city + '\'' +
                 ", state='" + state + '\'' +

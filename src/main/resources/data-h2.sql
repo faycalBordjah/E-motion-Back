@@ -9,14 +9,14 @@ VALUES ('USER_ROLE', 'Custom user');
 
 INSERT INTO address(city,
                     country,
-                    number,
+                    road_number,
                     state,
                     street,
                     zip)
 VALUES ('paris', 'france', 12, 'ile de france', 'claude tilliers', 75012);
 INSERT INTO address(city,
                     country,
-                    number,
+                    road_number,
                     state,
                     street,
                     zip)
