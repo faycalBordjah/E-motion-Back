@@ -4,3 +4,16 @@
 
 Repo pour le projet e-motion D-20.4 2019 pour la partie Backend 
 
+Pour lancer le Back-end de l'application :
+
+* placez vous sur la racince du projet
+* lancer la commande :
+```bash
+docker build -t emotion .
+```
+* puis la commance 
+
+```bash
+docker run -p 8081:8080 emotion
+```
+

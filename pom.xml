@@ -11,7 +11,7 @@
     <groupId>com.motus</groupId>
     <artifactId>emotion</artifactId>
     <version>0.0.1-SNAPSHOT</version>
-    <packaging>war</packaging>
+    <packaging>jar</packaging>
     <name>emotion</name>
     <description>projet de backend du site emotion</description>
 
