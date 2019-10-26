@@ -17,9 +17,5 @@ docker build -t emotion-back .
 docker run -p 8080:8080 emotion-back
 ```
 
-Votre serveur backend seras diponible sur le lien 
-```
-
-```
 
 
