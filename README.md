@@ -17,5 +17,6 @@ docker build -t emotion-back .
 docker run -p 8080:8080 emotion-back
 ```
 
+> voici le lien vers le repositori front-end https://github.com/faycalBordjah/E-motion-front
 
 
